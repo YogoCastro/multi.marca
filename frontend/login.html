@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Entrar | Multicheiros</title>
+
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body class="auth-page">
+
+    <main class="auth-main">
+
+        <section class="auth-container">
+
+            <a href="index.html" class="auth-logo">
+                MULTICHEIROS
+            </a>
+            <!-- Card de login -->
+            <div class="auth-card">
+
+                <!-- Cabeçalho -->
+                <div class="auth-header">
+
+                    <h1>
+                        Bem-vindo de volta
+                    </h1>
+
+                    <p>
+                        Entre na sua conta para continuar.
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                    FORMULÁRIO
+                ================================================== -->
+
+                <form
+                    class="auth-form"
+                    id="login-form"
+                    novalidate
+                >
+
+                    <!-- E-mail -->
+                    <div class="form-group">
+
+                        <label for="email">
+                            E-mail
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Digite seu e-mail"
+                            autocomplete="email"
+                            required
+                        >
+
+                        <small
+                            class="form-error"
+                            id="email-error"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- Senha -->
+                    <div class="form-group">
+
+                        <div class="form-label-row">
+
+                            <label for="password">
+                                Senha
+                            </label>
+
+                            
+                        </div>
+                        
+                        <div class="password-input">
+                            
+                            <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Digite sua senha"
+                            autocomplete="current-password"
+                            required
+                            >
+                            
+                            <a
+                                href="#"
+                                class="forgot-password"
+                            >
+                                Esqueceu a senha?
+                            </a>
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="password-toggle"
+                                aria-label="Mostrar senha"
+                            >
+                                Mostrar
+                            </button>
+
+                        </div>
+
+                        <small
+                            class="form-error"
+                            id="password-error"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- Lembrar login -->
+                    <div class="remember-row">
+
+                        <label class="checkbox-label">
+
+                            <input
+                                type="checkbox"
+                                id="remember"
+                                name="remember"
+                            >
+
+                            <span>
+                                Lembrar de mim
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- Mensagem geral -->
+                    <div
+                        class="form-message"
+                        id="form-message"
+                        role="alert"
+                        hidden
+                    ></div>
+
+
+                    <!-- Botão -->
+                    <button
+                        type="submit"
+                        class="auth-button"
+                    >
+                        Entrar
+                    </button>
+
+                </form>
+
+
+                <!-- Cadastro -->
+                <div class="auth-footer">
+
+                    <span>
+                        Ainda não possui uma conta?
+                    </span>
+
+                    <a href="cadastro.html">
+                        Criar conta
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+    <script src="js/auth.js"></script>
+
+</body>
+
+</html>
