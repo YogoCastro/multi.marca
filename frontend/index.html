@@ -1,152 +1,103 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Multicheiros | Loja</title>
 
     <!-- CSS principal -->
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/loja.css">
-</head>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/loja.css" />
+  </head>
 
-<body>
-
+  <body>
     <!-- =====================================================
         CABEÇALHO
     ====================================================== -->
     <header class="header">
+      <div class="header-container">
+        <!-- Logo -->
+        <a href="index.html" class="logo"> MULTICHEIROS </a>
 
-        <div class="header-container">
+        <!-- Navegação -->
+        <nav class="navigation">
+          <a href="index.html" class="nav-link active"> Início </a>
 
-            <!-- Logo -->
-            <a href="index.html" class="logo">
-                MULTICHEIROS
-            </a>
+          <a href="#produtos" class="nav-link"> Produtos </a>
+        </nav>
 
-            <!-- Navegação -->
-            <nav class="navigation">
-                <a href="index.html" class="nav-link active">
-                    Início
-                </a>
+        <!-- Ações do usuário -->
+        <div class="header-actions">
+          <a href="login.html" class="login-button"> Entrar </a>
 
-                <a href="#produtos" class="nav-link">
-                    Produtos
-                </a>
-            </nav>
+          <a href="cadastro.html" class="register-button"> Criar conta </a>
 
-            <!-- Ações do usuário -->
-            <div class="header-actions">
+          <!-- Carrinho -->
+          <a
+            href="carrinho.html"
+            class="cart-button"
+            aria-label="Abrir carrinho"
+          >
+            <span class="cart-icon">🛒</span>
 
-                <a href="login.html" class="login-button">
-                    Entrar
-                </a>
+            <span class="cart-text"> Carrinho </span>
 
-                <a href="cadastro.html" class="register-button">
-                    Criar conta
-                </a>
-
-                <!-- Carrinho -->
-                <a href="carrinho.html" class="cart-button" aria-label="Abrir carrinho">
-                    <span class="cart-icon">🛒</span>
-
-                    <span class="cart-text">
-                        Carrinho
-                    </span>
-
-                    <!-- Quantidade de produtos -->
-                    <span class="cart-count" id="cart-count">
-                        0
-                    </span>
-                </a>
-
-            </div>
-
+            <!-- Quantidade de produtos -->
+            <span class="cart-count" id="cart-count"> 0 </span>
+          </a>
         </div>
-
+      </div>
     </header>
-
 
     <!-- =====================================================
         CONTEÚDO PRINCIPAL
     ====================================================== -->
     <main>
-
-        <!-- =================================================
+      <!-- =================================================
             BANNER PRINCIPAL
         ================================================== -->
-        <section class="hero">
+      <section class="hero">
+        <div class="hero-container">
+          <div class="hero-content">
+            <span class="hero-label"> MULTICHEIROS </span>
 
-            <div class="hero-container">
+            <h1>Encontre tudo o que você precisa</h1>
 
-                <div class="hero-content">
+            <p>Confira nossos produtos e escolha o que combina com você.</p>
 
-                    <span class="hero-label">
-                        MULTICHEIROS
-                    </span>
+            <a href="#produtos" class="hero-button"> Ver produtos </a>
+          </div>
+        </div>
+      </section>
 
-                    <h1>
-                        Encontre tudo o que você precisa
-                    </h1>
-
-                    <p>
-                        Confira nossos produtos e escolha o que
-                        combina com você.
-                    </p>
-
-                    <a href="#produtos" class="hero-button">
-                        Ver produtos
-                    </a>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
+      <!-- =================================================
             PRODUTOS
         ================================================== -->
-        <section class="products-section" id="produtos">
+      <section class="products-section" id="produtos">
+        <div class="section-container">
+          <!-- Cabeçalho da seção -->
+          <div class="section-header">
+            <div>
+              <span class="section-label"> NOSSA LOJA </span>
 
-            <div class="section-container">
+              <h2>Produtos</h2>
+            </div>
 
-                <!-- Cabeçalho da seção -->
-                <div class="section-header">
+            <!-- Futuramente podemos colocar filtros aqui -->
+            <div class="products-filter">
+              <label for="product-search"> Buscar </label>
 
-                    <div>
-                        <span class="section-label">
-                            NOSSA LOJA
-                        </span>
+              <input
+                type="search"
+                id="product-search"
+                placeholder="Buscar produto..."
+                autocomplete="off"
+              />
+            </div>
+          </div>
 
-                        <h2>
-                            Produtos
-                        </h2>
-                    </div>
-
-                    <!-- Futuramente podemos colocar filtros aqui -->
-                    <div class="products-filter">
-
-                        <label for="product-search">
-                            Buscar
-                        </label>
-
-                        <input
-                            type="search"
-                            id="product-search"
-                            placeholder="Buscar produto..."
-                            autocomplete="off"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <!-- =================================================
+          <!-- =================================================
                     GRID DE PRODUTOS
 
                     IMPORTANTE:
@@ -156,289 +107,164 @@
                     recebidos da API.
                 ================================================== -->
 
-                <div
-                    class="products-grid"
-                    id="products-container"
-                >
+          <div class="products-grid" id="products-container">
+            <!-- PRODUTO 1 -->
+            <article class="product-card" data-product-id="1">
+              <div class="product-image">
+                <img
+                  src="https://via.placeholder.com/500x500"
+                  alt="Imagem do produto"
+                />
+              </div>
 
-                    <!-- PRODUTO 1 -->
-                    <article
-                        class="product-card"
-                        data-product-id="1"
-                    >
+              <div class="product-info">
+                <h3 class="product-name">Produto exemplo</h3>
 
-                        <div class="product-image">
+                <p class="product-description">Descrição do produto.</p>
 
-                            <img
-                                src="https://via.placeholder.com/500x500"
-                                alt="Imagem do produto"
-                            >
+                <div class="product-footer">
+                  <span class="product-price"> R$ 59,90 </span>
 
-                        </div>
-
-                        <div class="product-info">
-
-                            <h3 class="product-name">
-                                Produto exemplo
-                            </h3>
-
-                            <p class="product-description">
-                                Descrição do produto.
-                            </p>
-
-                            <div class="product-footer">
-
-                                <span class="product-price">
-                                    R$ 59,90
-                                </span>
-
-                                <button
-                                    type="button"
-                                    class="add-cart-button"
-                                    data-product-id="1"
-                                >
-                                    Adicionar
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- PRODUTO 2 -->
-                    <article
-                        class="product-card"
-                        data-product-id="2"
-                    >
-
-                        <div class="product-image">
-
-                            <img
-                                src="https://via.placeholder.com/500x500"
-                                alt="Imagem do produto"
-                            >
-
-                        </div>
-
-                        <div class="product-info">
-
-                            <h3 class="product-name">
-                                Produto exemplo 2
-                            </h3>
-
-                            <p class="product-description">
-                                Descrição do produto.
-                            </p>
-
-                            <div class="product-footer">
-
-                                <span class="product-price">
-                                    R$ 89,90
-                                </span>
-
-                                <button
-                                    type="button"
-                                    class="add-cart-button"
-                                    data-product-id="2"
-                                >
-                                    Adicionar
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- PRODUTO 3 -->
-                    <article
-                        class="product-card"
-                        data-product-id="3"
-                    >
-
-                        <div class="product-image">
-
-                            <img
-                                src="https://via.placeholder.com/500x500"
-                                alt="Imagem do produto"
-                            >
-
-                        </div>
-
-                        <div class="product-info">
-
-                            <h3 class="product-name">
-                                Produto exemplo 3
-                            </h3>
-
-                            <p class="product-description">
-                                Descrição do produto.
-                            </p>
-
-                            <div class="product-footer">
-
-                                <span class="product-price">
-                                    R$ 129,90
-                                </span>
-
-                                <button
-                                    type="button"
-                                    class="add-cart-button"
-                                    data-product-id="3"
-                                >
-                                    Adicionar
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- PRODUTO 4 -->
-                    <article
-                        class="product-card"
-                        data-product-id="4"
-                    >
-
-                        <div class="product-image">
-
-                            <img
-                                src="https://via.placeholder.com/500x500"
-                                alt="Imagem do produto"
-                            >
-
-                        </div>
-
-                        <div class="product-info">
-
-                            <h3 class="product-name">
-                                Produto exemplo 4
-                            </h3>
-
-                            <p class="product-description">
-                                Descrição do produto.
-                            </p>
-
-                            <div class="product-footer">
-
-                                <span class="product-price">
-                                    R$ 39,90
-                                </span>
-
-                                <button
-                                    type="button"
-                                    class="add-cart-button"
-                                    data-product-id="4"
-                                >
-                                    Adicionar
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
+                  <button
+                    type="button"
+                    class="add-cart-button"
+                    data-product-id="1"
+                  >
+                    Adicionar
+                  </button>
                 </div>
+              </div>
+            </article>
 
+            <!-- PRODUTO 2 -->
+            <article class="product-card" data-product-id="2">
+              <div class="product-image">
+                <img
+                  src="https://via.placeholder.com/500x500"
+                  alt="Imagem do produto"
+                />
+              </div>
 
-                <!-- Mensagem para quando não houver produtos -->
-                <div
-                    class="empty-products"
-                    id="empty-products"
-                    hidden
-                >
-                    <h3>
-                        Nenhum produto encontrado
-                    </h3>
+              <div class="product-info">
+                <h3 class="product-name">Produto exemplo 2</h3>
 
-                    <p>
-                        Não encontramos produtos para sua busca.
-                    </p>
+                <p class="product-description">Descrição do produto.</p>
+
+                <div class="product-footer">
+                  <span class="product-price"> R$ 89,90 </span>
+
+                  <button
+                    type="button"
+                    class="add-cart-button"
+                    data-product-id="2"
+                  >
+                    Adicionar
+                  </button>
                 </div>
+              </div>
+            </article>
 
-            </div>
+            <!-- PRODUTO 3 -->
+            <article class="product-card" data-product-id="3">
+              <div class="product-image">
+                <img
+                  src="https://via.placeholder.com/500x500"
+                  alt="Imagem do produto"
+                />
+              </div>
 
-        </section>
+              <div class="product-info">
+                <h3 class="product-name">Produto exemplo 3</h3>
 
+                <p class="product-description">Descrição do produto.</p>
+
+                <div class="product-footer">
+                  <span class="product-price"> R$ 129,90 </span>
+
+                  <button
+                    type="button"
+                    class="add-cart-button"
+                    data-product-id="3"
+                  >
+                    Adicionar
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- PRODUTO 4 -->
+            <article class="product-card" data-product-id="4">
+              <div class="product-image">
+                <img
+                  src="https://via.placeholder.com/500x500"
+                  alt="Imagem do produto"
+                />
+              </div>
+
+              <div class="product-info">
+                <h3 class="product-name">Produto exemplo 4</h3>
+
+                <p class="product-description">Descrição do produto.</p>
+
+                <div class="product-footer">
+                  <span class="product-price"> R$ 39,90 </span>
+
+                  <button
+                    type="button"
+                    class="add-cart-button"
+                    data-product-id="4"
+                  >
+                    Adicionar
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Mensagem para quando não houver produtos -->
+          <div class="empty-products" id="empty-products" hidden>
+            <h3>Nenhum produto encontrado</h3>
+
+            <p>Não encontramos produtos para sua busca.</p>
+          </div>
+        </div>
+      </section>
     </main>
-
 
     <!-- =====================================================
         RODAPÉ
     ====================================================== -->
     <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"> MULTICHEIROS </a>
 
-        <div class="footer-container">
-
-            <div class="footer-brand">
-
-                <a href="index.html" class="logo">
-                    MULTICHEIROS
-                </a>
-
-                <p>
-                    Sua loja online.
-                </p>
-
-            </div>
-
-
-            <div class="footer-links">
-
-                <h3>
-                    Loja
-                </h3>
-
-                <a href="index.html">
-                    Início
-                </a>
-
-                <a href="#produtos">
-                    Produtos
-                </a>
-
-                <a href="carrinho.html">
-                    Carrinho
-                </a>
-
-            </div>
-
-
-            <div class="footer-links">
-
-                <h3>
-                    Conta
-                </h3>
-
-                <a href="login.html">
-                    Entrar
-                </a>
-
-                <a href="cadastro.html">
-                    Criar conta
-                </a>
-
-            </div>
-
+          <p>Sua loja online.</p>
         </div>
 
+        <div class="footer-links">
+          <h3>Loja</h3>
 
-        <div class="footer-bottom">
+          <a href="index.html"> Início </a>
 
-            <p>
-                © 2026 Multicheiros. Todos os direitos reservados.
-            </p>
+          <a href="#produtos"> Produtos </a>
 
+          <a href="carrinho.html"> Carrinho </a>
         </div>
 
+        <div class="footer-links">
+          <h3>Conta</h3>
+
+          <a href="login.html"> Entrar </a>
+
+          <a href="cadastro.html"> Criar conta </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Multicheiros. Todos os direitos reservados.</p>
+      </div>
     </footer>
-
 
     <!-- =====================================================
         JAVASCRIPT
@@ -452,9 +278,8 @@
         - atualizar contador do carrinho
         - pesquisar produtos
     ====================================================== -->
+    <script src="js/api.js"></script>
     <script src="js/carrinho.js"></script>
     <script src="js/produtos.js"></script>
-
-</body>
-
+  </body>
 </html>

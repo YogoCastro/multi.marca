@@ -1,55 +1,32 @@
-const products = [
-    {
-        id: 1,
-        name: "Produto de exemplo 1",
-        description: "Descrição do primeiro produto da loja.",
-        price: 49.90,
-        stock: 10,
-        image: ""
-    },
-
-    {
-        id: 2,
-        name: "Produto de exemplo 2",
-        description: "Descrição do segundo produto da loja.",
-        price: 79.90,
-        stock: 8,
-        image: ""
-    },
-
-    {
-        id: 3,
-        name: "Produto de exemplo 3",
-        description: "Descrição do terceiro produto da loja.",
-        price: 99.90,
-        stock: 5,
-        image: ""
-    },
-
-    {
-        id: 4,
-        name: "Produto de exemplo 4",
-        description: "Descrição do quarto produto da loja.",
-        price: 129.90,
-        stock: 3,
-        image: ""
-    }
-];
-
+const products = [];
 
 /* =========================================================
     ELEMENTOS
 ========================================================= */
 
-const productsContainer =
-    document.getElementById("products-container");
+const productsContainer = document.getElementById("products-container");
 
-const productSearch =
-    document.getElementById("product-search");
+const productSearch = document.getElementById("product-search");
 
-const emptyProducts =
-    document.getElementById("empty-products");
+const emptyProducts = document.getElementById("empty-products");
 
+async function loadProducts() {
+  try {
+    const response = await fetch(`${API_URL}/products`);
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("Erro ao buscar produtos:", data.message);
+
+      return;
+    }
+
+    setProducts(data.products);
+  } catch (error) {
+    console.error("Erro ao conectar com a API:", error);
+  }
+}
 
 /* =========================================================
     ESTADO
@@ -57,92 +34,66 @@ const emptyProducts =
 
 let displayedProducts = [...products];
 
-
 /* =========================================================
     INICIALIZAÇÃO
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-
-    renderProducts(products);
-
-    setupProductSearch();
-
+  loadProducts();
+  setupProductSearch();
 });
-
 
 /* =========================================================
     RENDERIZAR PRODUTOS
 ========================================================= */
 
 function renderProducts(productsToRender) {
+  if (!productsContainer) {
+    return;
+  }
 
-    if (!productsContainer) {
-        return;
-    }
+  productsContainer.innerHTML = "";
 
+  if (!productsToRender || productsToRender.length === 0) {
+    showEmptyProducts();
 
-    productsContainer.innerHTML = "";
+    return;
+  }
 
+  hideEmptyProducts();
 
-    if (
-        !productsToRender ||
-        productsToRender.length === 0
-    ) {
+  productsToRender.forEach((product) => {
+    const card = createProductCard(product);
 
-        showEmptyProducts();
+    productsContainer.appendChild(card);
+  });
 
-        return;
-
-    }
-
-
-    hideEmptyProducts();
-
-
-    productsToRender.forEach(product => {
-
-        const card = createProductCard(product);
-
-        productsContainer.appendChild(card);
-
-    });
-
-
-    displayedProducts = [...productsToRender];
-
+  displayedProducts = [...productsToRender];
 }
-
 
 /* =========================================================
     CRIAR CARD
 ========================================================= */
 
 function createProductCard(product) {
+  const article = document.createElement("article");
 
-    const article = document.createElement("article");
+  article.className = "product-card";
 
-    article.className = "product-card";
+  article.dataset.productId = product.id;
 
-    article.dataset.productId = product.id;
+  const formattedPrice = formatCurrency(product.price);
 
+  const hasStock = Number(product.stock) > 0;
 
-    const formattedPrice =
-        formatCurrency(product.price);
-
-
-    const hasStock =
-        Number(product.stock) > 0;
-
-
-    const imageHTML = product.image
-        ? `
+  const imageHTML = product.image
+    ? `
             <img
                 src="${escapeHTML(product.image)}"
                 alt="${escapeHTML(product.name)}"
             >
         `
-        : `
+    : `
             <div class="product-image-placeholder">
                 <span>
                     Produto
@@ -150,8 +101,7 @@ function createProductCard(product) {
             </div>
         `;
 
-
-    article.innerHTML = `
+  article.innerHTML = `
 
         <div class="product-image">
 
@@ -185,11 +135,7 @@ function createProductCard(product) {
                     data-product-id="${escapeHTML(product.id)}"
                     ${!hasStock ? "disabled" : ""}
                 >
-                    ${
-                        hasStock
-                            ? "Adicionar ao carrinho"
-                            : "Sem estoque"
-                    }
+                    ${hasStock ? "Adicionar ao carrinho" : "Sem estoque"}
                 </button>
 
             </div>
@@ -198,241 +144,151 @@ function createProductCard(product) {
 
     `;
 
+  setupAddToCartButton(article);
 
-    setupAddToCartButton(article);
-
-
-    return article;
-
+  return article;
 }
-
 
 /* =========================================================
     ADICIONAR AO CARRINHO
 ========================================================= */
 
 function setupAddToCartButton(card) {
+  const button = card.querySelector(".add-to-cart-button");
 
-    const button =
-        card.querySelector(".add-to-cart-button");
+  if (!button) {
+    return;
+  }
 
+  button.addEventListener("click", () => {
+    const productId = button.dataset.productId;
 
-    if (!button) {
-        return;
+    const product = products.find(
+      (item) => String(item.id) === String(productId),
+    );
+
+    if (!product) {
+      console.error("Produto não encontrado:", productId);
+
+      return;
     }
 
+    if (Number(product.stock) <= 0) {
+      return;
+    }
 
-    button.addEventListener("click", () => {
-
-        const productId =
-            button.dataset.productId;
-
-
-        const product =
-            products.find(
-                item =>
-                    String(item.id) === String(productId)
-            );
-
-
-        if (!product) {
-
-            console.error(
-                "Produto não encontrado:",
-                productId
-            );
-
-            return;
-
-        }
-
-
-        if (Number(product.stock) <= 0) {
-
-            return;
-
-        }
-
-
-        /*
+    /*
             A função addToCart vem do carrinho.js.
         */
 
-        if (
-            typeof window.addToCart !==
-            "function"
-        ) {
+    if (typeof window.addToCart !== "function") {
+      console.error(
+        "A função addToCart não está disponível. " +
+          "Verifique se carrinho.js foi carregado.",
+      );
 
-            console.error(
-                "A função addToCart não está disponível. " +
-                "Verifique se carrinho.js foi carregado."
-            );
+      return;
+    }
 
-            return;
+    window.addToCart(product);
 
-        }
-
-
-        window.addToCart(product);
-
-
-        showAddedFeedback(button);
-
-    });
-
+    showAddedFeedback(button);
+  });
 }
-
 
 /* =========================================================
     FEEDBACK DO BOTÃO
 ========================================================= */
 
 function showAddedFeedback(button) {
+  const originalText = button.textContent;
 
-    const originalText =
-        button.textContent;
+  button.textContent = "Adicionado ✓";
 
+  button.disabled = true;
 
-    button.textContent =
-        "Adicionado ✓";
+  setTimeout(() => {
+    button.textContent = originalText;
 
-
-    button.disabled = true;
-
-
-    setTimeout(() => {
-
-        button.textContent =
-            originalText;
-
-        button.disabled = false;
-
-    }, 1000);
-
+    button.disabled = false;
+  }, 1000);
 }
-
 
 /* =========================================================
     PESQUISA
 ========================================================= */
 
 function setupProductSearch() {
+  if (!productSearch) {
+    return;
+  }
 
-    if (!productSearch) {
-        return;
-    }
-
-
-    productSearch.addEventListener(
-        "input",
-        handleProductSearch
-    );
-
+  productSearch.addEventListener("input", handleProductSearch);
 }
-
 
 function handleProductSearch(event) {
+  const searchTerm = event.target.value.trim().toLowerCase();
 
-    const searchTerm =
-        event.target.value
-            .trim()
-            .toLowerCase();
+  if (!searchTerm) {
+    renderProducts(products);
 
+    return;
+  }
 
-    if (!searchTerm) {
+  const filteredProducts = products.filter((product) => {
+    const name = String(product.name || "").toLowerCase();
 
-        renderProducts(products);
+    const description = String(product.description || "").toLowerCase();
 
-        return;
+    return name.includes(searchTerm) || description.includes(searchTerm);
+  });
 
-    }
-
-
-    const filteredProducts =
-        products.filter(product => {
-
-            const name =
-                String(product.name || "")
-                    .toLowerCase();
-
-            const description =
-                String(product.description || "")
-                    .toLowerCase();
-
-
-            return (
-                name.includes(searchTerm) ||
-                description.includes(searchTerm)
-            );
-
-        });
-
-
-    renderProducts(filteredProducts);
-
+  renderProducts(filteredProducts);
 }
-
 
 /* =========================================================
     PRODUTOS VAZIOS
 ========================================================= */
 
 function showEmptyProducts() {
+  if (!emptyProducts) {
+    return;
+  }
 
-    if (!emptyProducts) {
-        return;
-    }
-
-
-    emptyProducts.hidden = false;
-
+  emptyProducts.hidden = false;
 }
-
 
 function hideEmptyProducts() {
+  if (!emptyProducts) {
+    return;
+  }
 
-    if (!emptyProducts) {
-        return;
-    }
-
-
-    emptyProducts.hidden = true;
-
+  emptyProducts.hidden = true;
 }
-
 
 /* =========================================================
     FORMATAÇÃO DE MOEDA
 ========================================================= */
 
 function formatCurrency(value) {
-
-    return new Intl.NumberFormat(
-        "pt-BR",
-        {
-            style: "currency",
-            currency: "BRL"
-        }
-    ).format(Number(value) || 0);
-
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(Number(value) || 0);
 }
-
 
 /* =========================================================
     ESCAPAR HTML
 ========================================================= */
 
 function escapeHTML(value) {
-
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
-
 
 /* =========================================================
     FUNÇÕES PARA USO FUTURO
@@ -442,24 +298,15 @@ function escapeHTML(value) {
  * Retorna um produto pelo ID.
  */
 function getProductById(productId) {
-
-    return products.find(
-        product =>
-            String(product.id) === String(productId)
-    );
-
+  return products.find((product) => String(product.id) === String(productId));
 }
-
 
 /**
  * Retorna todos os produtos.
  */
 function getProducts() {
-
-    return [...products];
-
+  return [...products];
 }
-
 
 /**
  * Atualiza a lista de produtos.
@@ -468,27 +315,18 @@ function getProducts() {
  * vierem da API.
  */
 function setProducts(newProducts) {
+  if (!Array.isArray(newProducts)) {
+    console.error("A lista de produtos precisa ser um array.");
 
-    if (!Array.isArray(newProducts)) {
+    return;
+  }
 
-        console.error(
-            "A lista de produtos precisa ser um array."
-        );
+  products.length = 0;
 
-        return;
+  products.push(...newProducts);
 
-    }
-
-
-    products.length = 0;
-
-    products.push(...newProducts);
-
-
-    renderProducts(products);
-
+  renderProducts(products);
 }
-
 
 /* =========================================================
     EXPORTAÇÕES GLOBAIS
@@ -500,12 +338,8 @@ window.getProducts = getProducts;
 
 window.setProducts = setProducts;
 
-
 /* =========================================================
     DEBUG
 ========================================================= */
 
-console.log(
-    "Produtos Multicheiros carregados:",
-    products
-);
+console.log("Produtos Multicheiros carregados:", products);

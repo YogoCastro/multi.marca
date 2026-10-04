@@ -18,920 +18,568 @@
 const USER_STORAGE_KEY = "multicheiros_user";
 const SESSION_STORAGE_KEY = "multicheiros_session";
 
-
 /* =========================================================
     ELEMENTOS
 ========================================================= */
 
-const loginForm =
-    document.getElementById("login-form");
+const loginForm = document.getElementById("login-form");
 
-const registerForm =
-    document.getElementById("register-form");
-
+const registerForm = document.getElementById("register-form");
 
 /* =========================================================
     INICIALIZAÇÃO
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
+  setupPasswordToggles();
 
-    setupPasswordToggles();
+  setupLogin();
 
-    setupLogin();
-
-    setupRegister();
-
+  setupRegister();
 });
-
 
 /* =========================================================
     LOGIN
 ========================================================= */
 
 function setupLogin() {
+  if (!loginForm) {
+    return;
+  }
 
-    if (!loginForm) {
-        return;
-    }
-
-
-    loginForm.addEventListener(
-        "submit",
-        handleLogin
-    );
-
+  loginForm.addEventListener("submit", handleLogin);
 }
-
 
 /* =========================================================
     PROCESSAR LOGIN
 ========================================================= */
 
-function handleLogin(event) {
+async function handleLogin(event) {
+  event.preventDefault();
 
-    event.preventDefault();
+  clearFormErrors(loginForm);
 
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const rememberInput = document.getElementById("remember");
+  const formMessage = document.getElementById("form-message");
 
-    clearFormErrors(loginForm);
+  if (!emailInput || !passwordInput) {
+    return;
+  }
 
+  const email = emailInput.value.trim().toLowerCase();
+  const password = passwordInput.value;
 
-    const emailInput =
-        document.getElementById("email");
+  let valid = true;
 
-    const passwordInput =
-        document.getElementById("password");
-
-    const rememberInput =
-        document.getElementById("remember");
-
-    const formMessage =
-        document.getElementById("form-message");
-
-
-    if (
-        !emailInput ||
-        !passwordInput
-    ) {
-        return;
-    }
-
-
-    const email =
-        emailInput.value.trim().toLowerCase();
-
-    const password =
-        passwordInput.value;
-
-
-    let valid = true;
-
-
-    /* -----------------------------------------------------
+  /* -----------------------------------------------------
         VALIDAR E-MAIL
-    ----------------------------------------------------- */
+  ----------------------------------------------------- */
 
-    if (!email) {
+  if (!email) {
+    showFieldError("email-error", "Digite seu e-mail.");
+    valid = false;
+  } else if (!isValidEmail(email)) {
+    showFieldError("email-error", "Digite um e-mail válido.");
+    valid = false;
+  }
 
-        showFieldError(
-            "email-error",
-            "Digite seu e-mail."
-        );
-
-        valid = false;
-
-    } else if (!isValidEmail(email)) {
-
-        showFieldError(
-            "email-error",
-            "Digite um e-mail válido."
-        );
-
-        valid = false;
-
-    }
-
-
-    /* -----------------------------------------------------
+  /* -----------------------------------------------------
         VALIDAR SENHA
-    ----------------------------------------------------- */
+  ----------------------------------------------------- */
 
-    if (!password) {
+  if (!password) {
+    showFieldError("password-error", "Digite sua senha.");
+    valid = false;
+  }
 
-        showFieldError(
-            "password-error",
-            "Digite sua senha."
-        );
+  if (!valid) {
+    return;
+  }
 
-        valid = false;
+  /* -----------------------------------------------------
+        LOGIN PELA API
+  ----------------------------------------------------- */
 
+  try {
+    const response = await fetch(`${API_URL}/auth/login`, {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      showFormMessage(
+        formMessage,
+        data.message || "E-mail ou senha incorretos.",
+        "error",
+      );
+
+      return;
     }
 
-
-    if (!valid) {
-        return;
-    }
-
+    const user = data.user;
+    const token = data.token;
 
     /* -----------------------------------------------------
-        BUSCAR USUÁRIO TEMPORÁRIO
-    ----------------------------------------------------- */
-
-    const user = getStoredUser();
-
-
-    if (!user) {
-
-        showFormMessage(
-            formMessage,
-            "Nenhuma conta encontrada. Crie uma conta primeiro.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    /* -----------------------------------------------------
-        VERIFICAR CREDENCIAIS
-    ----------------------------------------------------- */
-
-    if (
-        user.email !== email ||
-        user.password !== password
-    ) {
-
-        showFormMessage(
-            formMessage,
-            "E-mail ou senha incorretos.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    /* -----------------------------------------------------
-        CRIAR SESSÃO
+          CRIAR SESSÃO
     ----------------------------------------------------- */
 
     const session = {
-
-        id: user.id,
-
-        name: user.name,
-
-        email: user.email,
-
-        role: user.role,
-
-        loggedAt: new Date().toISOString()
-
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      token: token,
+      loggedAt: new Date().toISOString(),
     };
 
-
-    if (
-        rememberInput &&
-        rememberInput.checked
-    ) {
-
-        localStorage.setItem(
-            SESSION_STORAGE_KEY,
-            JSON.stringify(session)
-        );
-
+    if (rememberInput && rememberInput.checked) {
+      localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
     } else {
-
-        sessionStorage.setItem(
-            SESSION_STORAGE_KEY,
-            JSON.stringify(session)
-        );
-
+      sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
     }
-
 
     /* -----------------------------------------------------
-        SUCESSO
+          SUCESSO
     ----------------------------------------------------- */
 
-    showFormMessage(
-        formMessage,
-        "Login realizado com sucesso!",
-        "success"
-    );
+    showFormMessage(formMessage, "Login realizado com sucesso!", "success");
 
-
-    const submitButton =
-        loginForm.querySelector(
-            'button[type="submit"]'
-        );
-
+    const submitButton = loginForm.querySelector('button[type="submit"]');
 
     if (submitButton) {
-
-        submitButton.disabled = true;
-
-        submitButton.textContent =
-            "Entrando...";
-
+      submitButton.disabled = true;
+      submitButton.textContent = "Entrando...";
     }
 
-
-    /*
-        Pequeno atraso apenas para o usuário
-        visualizar a mensagem.
-    */
-
     setTimeout(() => {
-
-        window.location.href =
-            "index.html";
-
+      window.location.href = "index.html";
     }, 700);
+  } catch (error) {
+    console.error("Erro ao conectar com a API:", error);
 
+    showFormMessage(
+      formMessage,
+      "Não foi possível conectar ao servidor.",
+      "error",
+    );
+  }
 }
-
 
 /* =========================================================
     CADASTRO
 ========================================================= */
 
 function setupRegister() {
+  if (!registerForm) {
+    return;
+  }
 
-    if (!registerForm) {
-        return;
-    }
-
-
-    registerForm.addEventListener(
-        "submit",
-        handleRegister
-    );
-
+  registerForm.addEventListener("submit", handleRegister);
 }
-
 
 /* =========================================================
     PROCESSAR CADASTRO
 ========================================================= */
 
-function handleRegister(event) {
+async function handleRegister(event) {
+  event.preventDefault();
 
-    event.preventDefault();
+  clearFormErrors(registerForm);
 
+  const nameInput = document.getElementById("name");
 
-    clearFormErrors(registerForm);
+  const emailInput = document.getElementById("email");
 
+  const passwordInput = document.getElementById("password");
 
-    const nameInput =
-        document.getElementById("name");
+  const passwordConfirmInput = document.getElementById("password-confirm");
 
-    const emailInput =
-        document.getElementById("email");
+  const formMessage = document.getElementById("form-message");
 
-    const passwordInput =
-        document.getElementById("password");
+  if (!nameInput || !emailInput || !passwordInput || !passwordConfirmInput) {
+    return;
+  }
 
-    const passwordConfirmInput =
-        document.getElementById("password-confirm");
+  const name = nameInput.value.trim();
 
-    const formMessage =
-        document.getElementById("form-message");
+  const email = emailInput.value.trim().toLowerCase();
 
+  const password = passwordInput.value;
 
-    if (
-        !nameInput ||
-        !emailInput ||
-        !passwordInput ||
-        !passwordConfirmInput
-    ) {
-        return;
-    }
+  const passwordConfirm = passwordConfirmInput.value;
 
+  let valid = true;
 
-    const name =
-        nameInput.value.trim();
-
-    const email =
-        emailInput.value.trim().toLowerCase();
-
-    const password =
-        passwordInput.value;
-
-    const passwordConfirm =
-        passwordConfirmInput.value;
-
-
-    let valid = true;
-
-
-    /* -----------------------------------------------------
+  /* -----------------------------------------------------
         VALIDAR NOME
     ----------------------------------------------------- */
 
-    if (!name) {
+  if (!name) {
+    showFieldError("name-error", "Digite seu nome.");
 
-        showFieldError(
-            "name-error",
-            "Digite seu nome."
-        );
+    valid = false;
+  } else if (name.length < 2) {
+    showFieldError("name-error", "O nome precisa ter pelo menos 2 caracteres.");
 
-        valid = false;
+    valid = false;
+  }
 
-    } else if (name.length < 2) {
-
-        showFieldError(
-            "name-error",
-            "O nome precisa ter pelo menos 2 caracteres."
-        );
-
-        valid = false;
-
-    }
-
-
-    /* -----------------------------------------------------
+  /* -----------------------------------------------------
         VALIDAR E-MAIL
     ----------------------------------------------------- */
 
-    if (!email) {
+  if (!email) {
+    showFieldError("email-error", "Digite seu e-mail.");
 
-        showFieldError(
-            "email-error",
-            "Digite seu e-mail."
-        );
+    valid = false;
+  } else if (!isValidEmail(email)) {
+    showFieldError("email-error", "Digite um e-mail válido.");
 
-        valid = false;
+    valid = false;
+  }
 
-    } else if (!isValidEmail(email)) {
-
-        showFieldError(
-            "email-error",
-            "Digite um e-mail válido."
-        );
-
-        valid = false;
-
-    }
-
-
-    /* -----------------------------------------------------
+  /* -----------------------------------------------------
         VALIDAR SENHA
     ----------------------------------------------------- */
 
-    if (!password) {
+  if (!password) {
+    showFieldError("password-error", "Digite uma senha.");
 
-        showFieldError(
-            "password-error",
-            "Digite uma senha."
-        );
+    valid = false;
+  } else if (password.length < 6) {
+    showFieldError(
+      "password-error",
+      "A senha precisa ter pelo menos 6 caracteres.",
+    );
 
-        valid = false;
+    valid = false;
+  }
 
-    } else if (password.length < 6) {
-
-        showFieldError(
-            "password-error",
-            "A senha precisa ter pelo menos 6 caracteres."
-        );
-
-        valid = false;
-
-    }
-
-
-    /* -----------------------------------------------------
+  /* -----------------------------------------------------
         CONFIRMAR SENHA
     ----------------------------------------------------- */
 
-    if (!passwordConfirm) {
+  if (!passwordConfirm) {
+    showFieldError("password-confirm-error", "Confirme sua senha.");
 
-        showFieldError(
-            "password-confirm-error",
-            "Confirme sua senha."
-        );
+    valid = false;
+  } else if (password !== passwordConfirm) {
+    showFieldError("password-confirm-error", "As senhas não coincidem.");
 
-        valid = false;
+    valid = false;
+  }
 
-    } else if (password !== passwordConfirm) {
+  if (!valid) {
+    return;
+  }
 
-        showFieldError(
-            "password-confirm-error",
-            "As senhas não coincidem."
-        );
-
-        valid = false;
-
-    }
-
-
-    if (!valid) {
-        return;
-    }
-
-
-    /* -----------------------------------------------------
+  /* -----------------------------------------------------
         VERIFICAR CONTA EXISTENTE
     ----------------------------------------------------- */
 
-    const existingUser =
-        getStoredUser();
-
-
-    if (
-        existingUser &&
-        existingUser.email === email
-    ) {
-
-        showFormMessage(
-            formMessage,
-            "Já existe uma conta cadastrada com este e-mail.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    /* -----------------------------------------------------
+  /* -----------------------------------------------------
         CRIAR USUÁRIO TEMPORÁRIO
     ----------------------------------------------------- */
 
-    const user = {
+  try {
+    const response = await fetch(`${API_URL}/auth/register`, {
+      method: "POST",
 
-        id: generateUserId(),
+      headers: {
+        "Content-Type": "application/json",
+      },
 
-        name: name,
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+      }),
+    });
 
-        email: email,
+    const data = await response.json();
 
-        /*
-            TEMPORÁRIO:
-            No backend a senha NÃO será armazenada assim.
-            O backend usará bcrypt.
-        */
-        password: password,
+    if (!response.ok) {
+      showFormMessage(
+        formMessage,
+        data.message || "Erro ao criar conta.",
+        "error",
+      );
 
-        role: "USER",
+      return;
+    }
 
-        createdAt:
-            new Date().toISOString()
-
-    };
-
-
-    localStorage.setItem(
-        USER_STORAGE_KEY,
-        JSON.stringify(user)
+    showFormMessage(
+      formMessage,
+      "Conta criada com sucesso! Redirecionando para o login...",
+      "success",
     );
+  } catch (error) {
+    console.error("Erro ao conectar com a API:", error);
+    showFormMessage(
+      formMessage,
+      "Não foi possível conectar ao servidor.",
+      "error",
+    );
+  }
 
-
-    /* -----------------------------------------------------
+  /* -----------------------------------------------------
     MENSAGEM DE SUCESSO
     ----------------------------------------------------- */
 
-    showFormMessage(
-        formMessage,
-        "Conta criada com sucesso! Redirecionando para o login...",
-        "success"
-    );
+  showFormMessage(
+    formMessage,
+    "Conta criada com sucesso! Redirecionando para o login...",
+    "success",
+  );
 
+  const submitButton = registerForm.querySelector('button[type="submit"]');
 
-    const submitButton =
-        registerForm.querySelector(
-            'button[type="submit"]'
-        );
+  if (submitButton) {
+    submitButton.disabled = true;
 
+    submitButton.textContent = "Conta criada...";
+  }
 
-    if (submitButton) {
-
-        submitButton.disabled = true;
-
-        submitButton.textContent =
-            "Conta criada...";
-
-    }
-
-
-    /* -----------------------------------------------------
+  /* -----------------------------------------------------
     REDIRECIONAR
     ----------------------------------------------------- */
 
-    setTimeout(() => {
-
-        window.location.href =
-            "login.html";
-
-    }, 1000);
-
+  setTimeout(() => {
+    window.location.href = "login.html";
+  }, 1000);
 }
-
 
 /* =========================================================
     MOSTRAR / OCULTAR SENHA
 ========================================================= */
 
 function setupPasswordToggles() {
-
-    /*
+  /*
         Login
     */
 
-    setupPasswordToggle(
-        "password-toggle",
-        "password"
-    );
+  setupPasswordToggle("password-toggle", "password");
 
-
-    /*
+  /*
         Cadastro - senha
     */
 
-    setupPasswordToggle(
-        "password-toggle",
-        "password"
-    );
+  setupPasswordToggle("password-toggle", "password");
 
-
-    /*
+  /*
         Cadastro - confirmação
     */
 
-    setupPasswordToggle(
-        "password-confirm-toggle",
-        "password-confirm"
-    );
-
+  setupPasswordToggle("password-confirm-toggle", "password-confirm");
 }
-
 
 /**
  * Configura um botão de mostrar/ocultar senha.
  */
-function setupPasswordToggle(
-    buttonId,
-    inputId
-) {
+function setupPasswordToggle(buttonId, inputId) {
+  const button = document.getElementById(buttonId);
 
-    const button =
-        document.getElementById(buttonId);
+  const input = document.getElementById(inputId);
 
-    const input =
-        document.getElementById(inputId);
+  if (!button || !input) {
+    return;
+  }
 
-
-    if (!button || !input) {
-        return;
-    }
-
-
-    /*
+  /*
         Evita adicionar o mesmo evento duas vezes.
         Isso é útil porque login e cadastro
         possuem elementos com os mesmos IDs.
     */
 
-    if (
-        button.dataset.toggleInitialized === "true"
-    ) {
-        return;
-    }
+  if (button.dataset.toggleInitialized === "true") {
+    return;
+  }
 
+  button.dataset.toggleInitialized = "true";
 
-    button.dataset.toggleInitialized = "true";
+  button.addEventListener("click", () => {
+    const isPassword = input.type === "password";
 
+    input.type = isPassword ? "text" : "password";
 
-    button.addEventListener(
-        "click",
-        () => {
+    button.textContent = isPassword ? "Ocultar" : "Mostrar";
 
-            const isPassword =
-                input.type === "password";
-
-
-            input.type =
-                isPassword
-                    ? "text"
-                    : "password";
-
-
-            button.textContent =
-                isPassword
-                    ? "Ocultar"
-                    : "Mostrar";
-
-
-            button.setAttribute(
-                "aria-label",
-                isPassword
-                    ? "Ocultar senha"
-                    : "Mostrar senha"
-            );
-
-        }
+    button.setAttribute(
+      "aria-label",
+      isPassword ? "Ocultar senha" : "Mostrar senha",
     );
-
+  });
 }
-
 
 /* =========================================================
     VALIDAÇÃO DE E-MAIL
 ========================================================= */
 
 function isValidEmail(email) {
-
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        .test(email);
-
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
-
 
 /* =========================================================
     ERRO DE CAMPO
 ========================================================= */
 
-function showFieldError(
-    elementId,
-    message
-) {
+function showFieldError(elementId, message) {
+  const element = document.getElementById(elementId);
 
-    const element =
-        document.getElementById(elementId);
+  if (!element) {
+    return;
+  }
 
-
-    if (!element) {
-        return;
-    }
-
-
-    element.textContent =
-        message;
-
+  element.textContent = message;
 }
-
 
 /* =========================================================
     LIMPAR ERROS
 ========================================================= */
 
 function clearFormErrors(form) {
+  if (!form) {
+    return;
+  }
 
-    if (!form) {
-        return;
-    }
+  const errors = form.querySelectorAll(".form-error, .field-error");
 
+  errors.forEach((error) => {
+    error.textContent = "";
+  });
 
-    const errors =
-        form.querySelectorAll(
-            ".form-error, .field-error"
-        );
+  const message = form.querySelector(".form-message");
 
+  if (message) {
+    message.textContent = "";
 
-    errors.forEach(error => {
+    message.className = "form-message";
 
-        error.textContent = "";
-
-    });
-
-
-    const message =
-        form.querySelector(
-            ".form-message"
-        );
-
-
-    if (message) {
-
-        message.textContent = "";
-
-        message.className =
-            "form-message";
-
-        message.hidden = true;
-
-    }
-
+    message.hidden = true;
+  }
 }
-
 
 /* =========================================================
     MENSAGEM DO FORMULÁRIO
 ========================================================= */
 
-function showFormMessage(
-    element,
-    message,
-    type
-) {
+function showFormMessage(element, message, type) {
+  if (!element) {
+    return;
+  }
 
-    if (!element) {
-        return;
-    }
+  element.textContent = message;
 
+  element.className = `form-message ${type}`;
 
-    element.textContent =
-        message;
-
-
-    element.className =
-        `form-message ${type}`;
-
-
-    element.hidden = false;
-
+  element.hidden = false;
 }
-
 
 /* =========================================================
     USUÁRIO ARMAZENADO
 ========================================================= */
 
 function getStoredUser() {
+  try {
+    const storedUser = localStorage.getItem(USER_STORAGE_KEY);
 
-    try {
-
-        const storedUser =
-            localStorage.getItem(
-                USER_STORAGE_KEY
-            );
-
-
-        if (!storedUser) {
-            return null;
-        }
-
-
-        return JSON.parse(storedUser);
-
-    } catch (error) {
-
-        console.error(
-            "Erro ao carregar usuário:",
-            error
-        );
-
-        return null;
-
+    if (!storedUser) {
+      return null;
     }
 
-}
+    return JSON.parse(storedUser);
+  } catch (error) {
+    console.error("Erro ao carregar usuário:", error);
 
+    return null;
+  }
+}
 
 /* =========================================================
     SESSÃO ATUAL
 ========================================================= */
 
 function getCurrentSession() {
-
-    try {
-
-        /*
+  try {
+    /*
             Primeiro verifica localStorage.
             Depois verifica sessionStorage.
         */
 
-        const localSession =
-            localStorage.getItem(
-                SESSION_STORAGE_KEY
-            );
+    const localSession = localStorage.getItem(SESSION_STORAGE_KEY);
 
-
-        if (localSession) {
-
-            return JSON.parse(
-                localSession
-            );
-
-        }
-
-
-        const temporarySession =
-            sessionStorage.getItem(
-                SESSION_STORAGE_KEY
-            );
-
-
-        if (temporarySession) {
-
-            return JSON.parse(
-                temporarySession
-            );
-
-        }
-
-
-        return null;
-
-    } catch (error) {
-
-        console.error(
-            "Erro ao carregar sessão:",
-            error
-        );
-
-        return null;
-
+    if (localSession) {
+      return JSON.parse(localSession);
     }
 
-}
+    const temporarySession = sessionStorage.getItem(SESSION_STORAGE_KEY);
 
+    if (temporarySession) {
+      return JSON.parse(temporarySession);
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Erro ao carregar sessão:", error);
+
+    return null;
+  }
+}
 
 /* =========================================================
     LOGOUT
 ========================================================= */
 
 function logout() {
+  localStorage.removeItem(SESSION_STORAGE_KEY);
 
-    localStorage.removeItem(
-        SESSION_STORAGE_KEY
-    );
+  sessionStorage.removeItem(SESSION_STORAGE_KEY);
 
-
-    sessionStorage.removeItem(
-        SESSION_STORAGE_KEY
-    );
-
-
-    window.location.href =
-        "index.html";
-
+  window.location.href = "index.html";
 }
-
 
 /* =========================================================
     VERIFICAR LOGIN
 ========================================================= */
 
 function isLoggedIn() {
-
-    return getCurrentSession() !== null;
-
+  return getCurrentSession() !== null;
 }
-
 
 /* =========================================================
     GERAR ID DO USUÁRIO
 ========================================================= */
 
 function generateUserId() {
-
-    return (
-        Date.now().toString() +
-        Math.floor(
-            Math.random() * 1000
-        ).toString()
-    );
-
+  return Date.now().toString() + Math.floor(Math.random() * 1000).toString();
 }
-
 
 /* =========================================================
     EXPORTAÇÕES GLOBAIS
 ========================================================= */
 
-window.getStoredUser =
-    getStoredUser;
+window.getStoredUser = getStoredUser;
 
+window.getCurrentSession = getCurrentSession;
 
-window.getCurrentSession =
-    getCurrentSession;
+window.isLoggedIn = isLoggedIn;
 
-
-window.isLoggedIn =
-    isLoggedIn;
-
-
-window.logout =
-    logout;
-
+window.logout = logout;
 
 /* =========================================================
     DEBUG
 ========================================================= */
 
-console.log(
-    "Auth Multicheiros carregado."
-);
+console.log("Auth Multicheiros carregado.");

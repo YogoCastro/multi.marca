@@ -1,4 +1,3 @@
-
 /* =========================================================
     CARRINHO - MULTICHEIROS
     ---------------------------------------------------------
@@ -9,13 +8,11 @@
     com os produtos vindos da API.
 ========================================================= */
 
-
 /* =========================================================
     CONFIGURAÇÃO
 ========================================================= */
 
 const CART_STORAGE_KEY = "multicheiros_cart";
-
 
 /* =========================================================
     ELEMENTOS DA PÁGINA
@@ -37,7 +34,6 @@ const couponMessage = document.getElementById("coupon-message");
 
 const checkoutButton = document.getElementById("checkout-button");
 
-
 /* =========================================================
     ESTADO
 ========================================================= */
@@ -46,21 +42,19 @@ let cart = loadCart();
 
 let appliedCoupon = null;
 
-
 /* =========================================================
     INICIALIZAÇÃO
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
+  loadCartFromAPI();
 
-    renderCart();
+  renderCart();
 
-    setupCoupon();
+  setupCoupon();
 
-    setupCheckout();
-
+  setupCheckout();
 });
-
 
 /* =========================================================
     LOCAL STORAGE
@@ -70,60 +64,81 @@ document.addEventListener("DOMContentLoaded", () => {
  * Carrega o carrinho salvo no navegador.
  */
 function loadCart() {
+  try {
+    const savedCart = localStorage.getItem(CART_STORAGE_KEY);
 
-    try {
-
-        const savedCart = localStorage.getItem(CART_STORAGE_KEY);
-
-        if (!savedCart) {
-            return [];
-        }
-
-        const parsedCart = JSON.parse(savedCart);
-
-        if (!Array.isArray(parsedCart)) {
-            return [];
-        }
-
-        return parsedCart;
-
-    } catch (error) {
-
-        console.error(
-            "Erro ao carregar o carrinho:",
-            error
-        );
-
-        return [];
-
+    if (!savedCart) {
+      return [];
     }
 
+    const parsedCart = JSON.parse(savedCart);
+
+    if (!Array.isArray(parsedCart)) {
+      return [];
+    }
+
+    return parsedCart;
+  } catch (error) {
+    console.error("Erro ao carregar o carrinho:", error);
+
+    return [];
+  }
 }
 
+async function loadCartFromAPI() {
+  try {
+    const session =
+      JSON.parse(localStorage.getItem("multicheiros_session")) ||
+      JSON.parse(sessionStorage.getItem("multicheiros_session"));
+
+    if (!session || !session.token) {
+      console.log("Usuário não autenticado.");
+
+      return;
+    }
+
+    const response = await fetch(`${API_URL}/cart`, {
+      method: "GET",
+
+      headers: {
+        Authorization: `Bearer ${session.token}`,
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("Erro ao buscar carrinho:", data.message);
+
+      return;
+    }
+
+    console.log("Carrinho recebido da API:", data);
+
+    cart = data.items.map((item) => ({
+      id: item.product_id,
+      name: item.name,
+      price: Number(item.price),
+      quantity: Number(item.quantity),
+      subtotal: Number(item.subtotal),
+    }));
+
+    renderCart();
+  } catch (error) {
+    console.error("Erro ao conectar com a API:", error);
+  }
+}
 
 /**
  * Salva o carrinho no navegador.
  */
 function saveCart() {
-
-    try {
-
-        localStorage.setItem(
-            CART_STORAGE_KEY,
-            JSON.stringify(cart)
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Erro ao salvar o carrinho:",
-            error
-        );
-
-    }
-
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+  } catch (error) {
+    console.error("Erro ao salvar o carrinho:", error);
+  }
 }
-
 
 /* =========================================================
     ADICIONAR PRODUTO
@@ -145,199 +160,278 @@ function saveCart() {
  *     description: "Descrição"
  * });
  */
-function addToCart(product) {
+async function addToCart(product) {
+  if (!product || product.id === undefined) {
+    console.error("Produto inválido.", product);
 
-    if (!product || product.id === undefined) {
+    return;
+  }
 
-        console.error(
-            "Produto inválido.",
-            product
-        );
+  try {
+    const session =
+      JSON.parse(localStorage.getItem("multicheiros_session")) ||
+      JSON.parse(sessionStorage.getItem("multicheiros_session"));
 
-        return;
+    if (!session || !session.token) {
+      alert("Faça login para adicionar produtos ao carrinho.");
 
+      return;
     }
 
+    const response = await fetch(`${API_URL}/cart`, {
+      method: "POST",
 
-    const existingProduct = cart.find(
-        item => String(item.id) === String(product.id)
-    );
+      headers: {
+        Authorization: `Bearer ${session.token}`,
+        "Content-Type": "application/json",
+      },
 
+      body: JSON.stringify({
+        productId: product.id,
+        quantity: 1,
+      }),
+    });
 
-    if (existingProduct) {
+    const data = await response.json();
 
-        existingProduct.quantity += 1;
+    if (!response.ok) {
+      console.error("Erro ao adicionar produto:", data.message);
 
-    } else {
+      alert(data.message || "Não foi possível adicionar o produto.");
 
-        cart.push({
-            id: product.id,
-            name: product.name || "Produto",
-            description: product.description || "",
-            price: Number(product.price) || 0,
-            image: product.image || "",
-            quantity: 1
-        });
-
+      return;
     }
 
+    console.log("Produto adicionado ao carrinho:", data);
 
-    saveCart();
+    alert("Produto adicionado ao carrinho!");
+  } catch (error) {
+    console.error("Erro ao conectar com a API:", error);
 
-    renderCart();
-
+    alert("Não foi possível conectar ao servidor.");
+  }
 }
-
 
 /* =========================================================
     REMOVER PRODUTO
 ========================================================= */
 
-function removeFromCart(productId) {
+async function removeFromCart(productId) {
+  try {
+    const session =
+      JSON.parse(localStorage.getItem("multicheiros_session")) ||
+      JSON.parse(sessionStorage.getItem("multicheiros_session"));
 
-    cart = cart.filter(
-        item => String(item.id) !== String(productId)
-    );
+    if (!session || !session.token) {
+      alert("Faça login novamente.");
+      return;
+    }
+
+    const response = await fetch(`${API_URL}/cart/${productId}`, {
+      method: "DELETE",
+
+      headers: {
+        Authorization: `Bearer ${session.token}`,
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("Erro ao remover produto:", data.message);
+
+      alert(data.message || "Não foi possível remover o produto.");
+
+      return;
+    }
+
+    cart = cart.filter((item) => String(item.id) !== String(productId));
 
     saveCart();
 
     renderCart();
 
+    console.log("Produto removido do carrinho:", data);
+  } catch (error) {
+    console.error("Erro ao conectar com a API:", error);
+
+    alert("Não foi possível conectar ao servidor.");
+  }
 }
-
-
 /* =========================================================
     ALTERAR QUANTIDADE
 ========================================================= */
 
-function increaseQuantity(productId) {
+async function increaseQuantity(productId) {
+  const product = cart.find((item) => String(item.id) === String(productId));
 
-    const product = cart.find(
-        item => String(item.id) === String(productId)
-    );
+  if (!product) {
+    return;
+  }
 
+  const newQuantity = product.quantity + 1;
 
-    if (!product) {
-        return;
+  try {
+    const session =
+      JSON.parse(localStorage.getItem("multicheiros_session")) ||
+      JSON.parse(sessionStorage.getItem("multicheiros_session"));
+
+    if (!session || !session.token) {
+      alert("Faça login novamente.");
+      return;
     }
 
+    const response = await fetch(`${API_URL}/cart/${productId}`, {
+      method: "PUT",
 
-    product.quantity += 1;
+      headers: {
+        Authorization: `Bearer ${session.token}`,
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        quantity: newQuantity,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("Erro ao aumentar quantidade:", data.message);
+
+      alert(data.message || "Não foi possível aumentar a quantidade.");
+
+      return;
+    }
+
+    product.quantity = newQuantity;
 
     saveCart();
 
     renderCart();
+  } catch (error) {
+    console.error("Erro ao conectar com a API:", error);
 
+    alert("Não foi possível conectar ao servidor.");
+  }
 }
 
+async function decreaseQuantity(productId) {
+  const product = cart.find((item) => String(item.id) === String(productId));
 
-function decreaseQuantity(productId) {
+  if (!product) {
+    return;
+  }
 
-    const product = cart.find(
-        item => String(item.id) === String(productId)
-    );
+  if (product.quantity <= 1) {
+    removeFromCart(productId);
+    return;
+  }
 
+  const newQuantity = product.quantity - 1;
 
-    if (!product) {
-        return;
+  try {
+    const session =
+      JSON.parse(localStorage.getItem("multicheiros_session")) ||
+      JSON.parse(sessionStorage.getItem("multicheiros_session"));
+
+    if (!session || !session.token) {
+      alert("Faça login novamente.");
+      return;
     }
 
+    const response = await fetch(`${API_URL}/cart/${productId}`, {
+      method: "PUT",
 
-    if (product.quantity <= 1) {
+      headers: {
+        Authorization: `Bearer ${session.token}`,
+        "Content-Type": "application/json",
+      },
 
-        removeFromCart(productId);
+      body: JSON.stringify({
+        quantity: newQuantity,
+      }),
+    });
 
-        return;
+    const data = await response.json();
 
+    if (!response.ok) {
+      console.error("Erro ao diminuir quantidade:", data.message);
+
+      alert(data.message || "Não foi possível atualizar a quantidade.");
+
+      return;
     }
 
-
-    product.quantity -= 1;
+    product.quantity = newQuantity;
 
     saveCart();
 
     renderCart();
+  } catch (error) {
+    console.error("Erro ao conectar com a API:", error);
 
+    alert("Não foi possível conectar ao servidor.");
+  }
 }
-
 
 /* =========================================================
     RENDERIZAR CARRINHO
 ========================================================= */
 
 function renderCart() {
+  if (!cartItemsContainer) {
+    return;
+  }
 
-    if (!cartItemsContainer) {
-        return;
-    }
+  cartItemsContainer.innerHTML = "";
 
+  const totalItems = getTotalItems();
 
-    cartItemsContainer.innerHTML = "";
+  updateCartCount(totalItems);
 
+  if (cartItemsCount) {
+    cartItemsCount.textContent = `${totalItems} ${totalItems === 1 ? "item" : "itens"}`;
+  }
 
-    const totalItems = getTotalItems();
-
-
-    updateCartCount(totalItems);
-
-
-    if (cartItemsCount) {
-
-        cartItemsCount.textContent =
-            `${totalItems} ${totalItems === 1 ? "item" : "itens"}`;
-
-    }
-
-
-    if (cart.length === 0) {
-
-        showEmptyCart();
-
-        updateSummary();
-
-        return;
-
-    }
-
-
-    hideEmptyCart();
-
-
-    cart.forEach(product => {
-
-        const itemElement = createCartItem(product);
-
-        cartItemsContainer.appendChild(itemElement);
-
-    });
-
+  if (cart.length === 0) {
+    showEmptyCart();
 
     updateSummary();
 
-}
+    return;
+  }
 
+  hideEmptyCart();
+
+  cart.forEach((product) => {
+    const itemElement = createCartItem(product);
+
+    cartItemsContainer.appendChild(itemElement);
+  });
+
+  updateSummary();
+}
 
 /* =========================================================
     CRIAR ITEM DO CARRINHO
 ========================================================= */
 
 function createCartItem(product) {
+  const article = document.createElement("article");
 
-    const article = document.createElement("article");
+  article.className = "cart-item";
 
-    article.className = "cart-item";
+  const subtotal = product.price * product.quantity;
 
-    const subtotal = product.price * product.quantity;
-
-
-    const imageHTML = product.image
-        ? `
+  const imageHTML = product.image
+    ? `
             <img
                 src="${escapeHTML(product.image)}"
                 alt="${escapeHTML(product.name)}"
             >
         `
-        : `
+    : `
             <div
                 class="cart-product-placeholder"
                 aria-label="Imagem indisponível"
@@ -346,8 +440,7 @@ function createCartItem(product) {
             </div>
         `;
 
-
-    article.innerHTML = `
+  article.innerHTML = `
 
         <div class="cart-item-image">
 
@@ -363,13 +456,13 @@ function createCartItem(product) {
             </h3>
 
             ${
-                product.description
-                    ? `
+              product.description
+                ? `
                         <p class="cart-item-description">
                             ${escapeHTML(product.description)}
                         </p>
                     `
-                    : ""
+                : ""
             }
 
             <span class="cart-item-price">
@@ -429,115 +522,73 @@ function createCartItem(product) {
 
     `;
 
+  setupCartItemButtons(article);
 
-    setupCartItemButtons(article);
-
-
-    return article;
-
+  return article;
 }
-
 
 /* =========================================================
     BOTÕES DOS PRODUTOS
 ========================================================= */
 
 function setupCartItemButtons(itemElement) {
+  const buttons = itemElement.querySelectorAll("[data-action]");
 
-    const buttons = itemElement.querySelectorAll(
-        "[data-action]"
-    );
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const action = button.dataset.action;
 
+      const productId = button.dataset.id;
 
-    buttons.forEach(button => {
+      if (action === "increase") {
+        increaseQuantity(productId);
+      }
 
-        button.addEventListener("click", () => {
+      if (action === "decrease") {
+        decreaseQuantity(productId);
+      }
 
-            const action = button.dataset.action;
-
-            const productId = button.dataset.id;
-
-
-            if (action === "increase") {
-
-                increaseQuantity(productId);
-
-            }
-
-
-            if (action === "decrease") {
-
-                decreaseQuantity(productId);
-
-            }
-
-
-            if (action === "remove") {
-
-                removeFromCart(productId);
-
-            }
-
-        });
-
+      if (action === "remove") {
+        removeFromCart(productId);
+      }
     });
-
+  });
 }
-
 
 /* =========================================================
     CONTADOR
 ========================================================= */
 
 function getTotalItems() {
-
-    return cart.reduce(
-        (total, product) => {
-            return total + product.quantity;
-        },
-        0
-    );
-
+  return cart.reduce((total, product) => {
+    return total + product.quantity;
+  }, 0);
 }
-
 
 function updateCartCount(count) {
+  if (!cartCount) {
+    return;
+  }
 
-    if (!cartCount) {
-        return;
-    }
-
-    cartCount.textContent = count;
-
+  cartCount.textContent = count;
 }
-
 
 /* =========================================================
     SUBTOTAL
 ========================================================= */
 
 function getSubtotal() {
-
-    return cart.reduce(
-        (total, product) => {
-
-            return total +
-                (product.price * product.quantity);
-
-        },
-        0
-    );
-
+  return cart.reduce((total, product) => {
+    return total + product.price * product.quantity;
+  }, 0);
 }
-
 
 /* =========================================================
     FRETE
 ========================================================= */
 
 function getShipping() {
-
-    /*
+  /*
         Por enquanto o frete é R$ 0,00.
 
         Futuramente podemos calcular isso através de:
@@ -548,284 +599,184 @@ function getShipping() {
         - API de frete
     */
 
-    return 0;
-
+  return 0;
 }
-
 
 /* =========================================================
     DESCONTO
 ========================================================= */
 
 function getDiscount(subtotal) {
+  if (!appliedCoupon) {
+    return 0;
+  }
 
-    if (!appliedCoupon) {
-        return 0;
-    }
-
-
-    return subtotal * appliedCoupon.discount;
-
+  return subtotal * appliedCoupon.discount;
 }
-
 
 /* =========================================================
     TOTAL
 ========================================================= */
 
 function getTotal() {
+  const subtotal = getSubtotal();
 
-    const subtotal = getSubtotal();
+  const shipping = getShipping();
 
-    const shipping = getShipping();
+  const discount = getDiscount(subtotal);
 
-    const discount = getDiscount(subtotal);
-
-
-    return Math.max(
-        0,
-        subtotal + shipping - discount
-    );
-
+  return Math.max(0, subtotal + shipping - discount);
 }
-
 
 /* =========================================================
     ATUALIZAR RESUMO
 ========================================================= */
 
 function updateSummary() {
+  const subtotal = getSubtotal();
 
-    const subtotal = getSubtotal();
+  const shipping = getShipping();
 
-    const shipping = getShipping();
+  const discount = getDiscount(subtotal);
 
-    const discount = getDiscount(subtotal);
+  const total = getTotal();
 
-    const total = getTotal();
+  if (cartSubtotal) {
+    cartSubtotal.textContent = formatCurrency(subtotal);
+  }
 
+  if (cartShipping) {
+    cartShipping.textContent = formatCurrency(shipping);
+  }
 
-    if (cartSubtotal) {
+  if (cartTotal) {
+    cartTotal.textContent = formatCurrency(total);
+  }
 
-        cartSubtotal.textContent =
-            formatCurrency(subtotal);
-
-    }
-
-
-    if (cartShipping) {
-
-        cartShipping.textContent =
-            formatCurrency(shipping);
-
-    }
-
-
-    if (cartTotal) {
-
-        cartTotal.textContent =
-            formatCurrency(total);
-
-    }
-
-
-    /*
+  /*
         Caso futuramente adicionemos uma linha
         de desconto no HTML, ela poderá utilizar
         a variável "discount".
     */
 
-    if (discount > 0) {
-
-        console.log(
-            "Desconto aplicado:",
-            formatCurrency(discount)
-        );
-
-    }
-
+  if (discount > 0) {
+    console.log("Desconto aplicado:", formatCurrency(discount));
+  }
 }
-
 
 /* =========================================================
     CARRINHO VAZIO
 ========================================================= */
 
 function showEmptyCart() {
+  if (cartEmpty) {
+    cartEmpty.hidden = false;
+  }
 
-    if (cartEmpty) {
-        cartEmpty.hidden = false;
-    }
-
-    if (cartItemsContainer) {
-        cartItemsContainer.hidden = true;
-    }
-
+  if (cartItemsContainer) {
+    cartItemsContainer.hidden = true;
+  }
 }
-
 
 function hideEmptyCart() {
+  if (cartEmpty) {
+    cartEmpty.hidden = true;
+  }
 
-    if (cartEmpty) {
-        cartEmpty.hidden = true;
-    }
-
-    if (cartItemsContainer) {
-        cartItemsContainer.hidden = false;
-    }
-
+  if (cartItemsContainer) {
+    cartItemsContainer.hidden = false;
+  }
 }
-
 
 /* =========================================================
     CUPOM
 ========================================================= */
 
 function setupCoupon() {
+  if (!applyCouponButton) {
+    return;
+  }
 
-    if (!applyCouponButton) {
-        return;
-    }
+  applyCouponButton.addEventListener("click", applyCoupon);
 
+  if (couponInput) {
+    couponInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
 
-    applyCouponButton.addEventListener(
-        "click",
-        applyCoupon
-    );
-
-
-    if (couponInput) {
-
-        couponInput.addEventListener(
-            "keydown",
-            event => {
-
-                if (event.key === "Enter") {
-
-                    event.preventDefault();
-
-                    applyCoupon();
-
-                }
-
-            }
-        );
-
-    }
-
+        applyCoupon();
+      }
+    });
+  }
 }
 
-
 function applyCoupon() {
+  if (!couponInput || !couponMessage) {
+    return;
+  }
 
-    if (!couponInput || !couponMessage) {
-        return;
-    }
+  const coupon = couponInput.value.trim().toUpperCase();
 
+  if (!coupon) {
+    showCouponMessage("Digite um cupom.", "error");
 
-    const coupon = couponInput.value
-        .trim()
-        .toUpperCase();
+    return;
+  }
 
-
-    if (!coupon) {
-
-        showCouponMessage(
-            "Digite um cupom.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    /*
+  /*
         Cupom apenas para teste do frontend.
 
         Futuramente os cupons serão
         validados pelo backend.
     */
 
-    if (coupon === "MULTI10") {
+  if (coupon === "MULTI10") {
+    appliedCoupon = {
+      code: "MULTI10",
+      discount: 0.1,
+    };
 
-        appliedCoupon = {
-            code: "MULTI10",
-            discount: 0.10
-        };
-
-
-        showCouponMessage(
-            "Cupom aplicado: 10% de desconto.",
-            "success"
-        );
-
-
-        updateSummary();
-
-        return;
-
-    }
-
-
-    appliedCoupon = null;
-
-
-    showCouponMessage(
-        "Cupom inválido.",
-        "error"
-    );
-
+    showCouponMessage("Cupom aplicado: 10% de desconto.", "success");
 
     updateSummary();
 
-}
+    return;
+  }
 
+  appliedCoupon = null;
+
+  showCouponMessage("Cupom inválido.", "error");
+
+  updateSummary();
+}
 
 function showCouponMessage(message, type) {
+  if (!couponMessage) {
+    return;
+  }
 
-    if (!couponMessage) {
-        return;
-    }
+  couponMessage.textContent = message;
 
-
-    couponMessage.textContent = message;
-
-    couponMessage.style.color =
-        type === "success"
-            ? "#166534"
-            : "#dc2626";
-
+  couponMessage.style.color = type === "success" ? "#166534" : "#dc2626";
 }
-
 
 /* =========================================================
     FINALIZAR COMPRA
 ========================================================= */
 
 function setupCheckout() {
+  if (!checkoutButton) {
+    return;
+  }
 
-    if (!checkoutButton) {
-        return;
+  checkoutButton.addEventListener("click", () => {
+    if (cart.length === 0) {
+      alert("Seu carrinho está vazio.");
+
+      return;
     }
 
-
-    checkoutButton.addEventListener(
-        "click",
-        () => {
-
-            if (cart.length === 0) {
-
-                alert(
-                    "Seu carrinho está vazio."
-                );
-
-                return;
-
-            }
-
-
-            /*
+    /*
                 Ainda não existe checkout no backend.
 
                 Quando integrarmos a API, este botão
@@ -833,32 +784,20 @@ function setupCheckout() {
                 de criação do pedido.
             */
 
-            alert(
-                "Checkout será implementado na próxima etapa."
-            );
-
-        }
-    );
-
+    alert("Checkout será implementado na próxima etapa.");
+  });
 }
-
 
 /* =========================================================
     FORMATAÇÃO DE MOEDA
 ========================================================= */
 
 function formatCurrency(value) {
-
-    return new Intl.NumberFormat(
-        "pt-BR",
-        {
-            style: "currency",
-            currency: "BRL"
-        }
-    ).format(Number(value) || 0);
-
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(Number(value) || 0);
 }
-
 
 /* =========================================================
     SEGURANÇA
@@ -869,16 +808,13 @@ function formatCurrency(value) {
  * sejam interpretados como código HTML.
  */
 function escapeHTML(value) {
-
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
-
 
 /* =========================================================
     FUNÇÕES GLOBAIS
@@ -894,12 +830,8 @@ window.removeFromCart = removeFromCart;
 window.increaseQuantity = increaseQuantity;
 window.decreaseQuantity = decreaseQuantity;
 
-
 /* =========================================================
     DEBUG
 ========================================================= */
 
-console.log(
-    "Carrinho Multicheiros carregado.",
-    cart
-);
+console.log("Carrinho Multicheiros carregado.", cart);
