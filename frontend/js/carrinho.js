@@ -764,27 +764,73 @@ function showCouponMessage(message, type) {
     FINALIZAR COMPRA
 ========================================================= */
 
-function setupCheckout() {
+async function setupCheckout() {
   if (!checkoutButton) {
     return;
   }
 
-  checkoutButton.addEventListener("click", () => {
+  checkoutButton.addEventListener("click", async () => {
     if (cart.length === 0) {
       alert("Seu carrinho está vazio.");
-
       return;
     }
 
-    /*
-                Ainda não existe checkout no backend.
+    try {
+      const session =
+        JSON.parse(localStorage.getItem("multicheiros_session")) ||
+        JSON.parse(sessionStorage.getItem("multicheiros_session"));
 
-                Quando integrarmos a API, este botão
-                será responsável por iniciar o processo
-                de criação do pedido.
-            */
+      if (!session || !session.token) {
+        alert("Faça login para finalizar a compra.");
 
-    alert("Checkout será implementado na próxima etapa.");
+        return;
+      }
+
+      checkoutButton.disabled = true;
+      checkoutButton.textContent = "Processando...";
+
+      const response = await fetch(`${API_URL}/orders`, {
+        method: "POST",
+
+        headers: {
+          Authorization: `Bearer ${session.token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Erro ao criar pedido:", data.message);
+
+        alert(data.message || "Não foi possível finalizar a compra.");
+
+        checkoutButton.disabled = false;
+        checkoutButton.textContent = "Finalizar compra";
+
+        return;
+      }
+
+      console.log("Pedido criado:", data);
+
+      alert(`Pedido #${data.order.orderId} criado com sucesso!`);
+
+      cart = [];
+
+      saveCart();
+
+      renderCart();
+
+      checkoutButton.disabled = false;
+      checkoutButton.textContent = "Finalizar compra";
+    } catch (error) {
+      console.error("Erro ao conectar com a API:", error);
+
+      alert("Não foi possível conectar ao servidor.");
+
+      checkoutButton.disabled = false;
+      checkoutButton.textContent = "Finalizar compra";
+    }
   });
 }
 

@@ -582,4 +582,16 @@ window.logout = logout;
     DEBUG
 ========================================================= */
 
+document.addEventListener("DOMContentLoaded", () => {
+  const ordersLink = document.getElementById("orders-link");
+
+  if (!ordersLink) {
+    return;
+  }
+
+  if (getCurrentSession()) {
+    ordersLink.style.display = "inline-flex";
+  }
+});
+
 console.log("Auth Multicheiros carregado.");

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Meus Pedidos | Multicheiros</title>
+
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/loja.css" />
+    <link rel="stylesheet" href="css/carrinho.css" />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="container header-content">
+        <a href="index.html" class="logo"> MULTICHEIROS </a>
+
+        <nav class="navigation">
+          <a href="index.html" class="nav-link"> Início </a>
+
+          <a href="index.html#produtos" class="nav-link"> Produtos </a>
+        </nav>
+
+        <div class="header-actions">
+          <a href="login.html" class="login-button"> Entrar </a>
+
+          <a href="pedidos.html" class="login-button"> Meus pedidos </a>
+
+          <a href="carrinho.html" class="cart-button">
+            <span class="cart-icon"> 🛒 </span>
+
+            <span class="cart-text"> Carrinho </span>
+
+            <span class="cart-count" id="cart-count"> 0 </span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="cart-main">
+      <div class="container">
+        <div class="cart-header">
+          <span class="section-label"> MULTICHEIROS </span>
+
+          <h1>Meus pedidos</h1>
+
+          <p>Acompanhe suas compras realizadas.</p>
+        </div>
+
+        <section id="orders-container">
+          <p>Carregando pedidos...</p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <p>© 2026 Multicheiros. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+    <script src="js/api.js"></script>
+    <script src="js/pedidos.js"></script>
+  </body>
+</html>
