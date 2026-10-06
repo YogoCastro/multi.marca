@@ -1,3 +1,9 @@
+const session = getCurrentSession();
+
+if (!session) {
+  window.location.href = "login.html";
+}
+
 console.log("PEDIDOS.JS FOI CARREGADO");
 
 console.log(

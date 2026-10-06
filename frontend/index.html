@@ -29,9 +29,12 @@
 
         <!-- Ações do usuário -->
         <div class="header-actions">
-          <a href="login.html" class="login-button"> Entrar </a>
+          <span id="user-name" style="display: none"></span>
+          <a href="login.html" class="login-button" id="login-link"> Entrar </a>
 
-          <a href="cadastro.html" class="register-button"> Criar conta </a>
+          <a href="cadastro.html" class="register-button" id="register-link">
+            Criar conta
+          </a>
 
           <a
             href="pedidos.html"
@@ -41,6 +44,15 @@
           >
             Meus pedidos
           </a>
+
+          <button
+            type="button"
+            class="login-button"
+            id="logout-button"
+            style="display: none"
+          >
+            Sair
+          </button>
 
           <!-- Carrinho -->
           <a

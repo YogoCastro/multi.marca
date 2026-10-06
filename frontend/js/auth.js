@@ -36,6 +36,38 @@ document.addEventListener("DOMContentLoaded", () => {
   setupLogin();
 
   setupRegister();
+
+  const ordersLink = document.getElementById("orders-link");
+  const userName = document.getElementById("user-name");
+  const loginLink = document.getElementById("login-link");
+  const registerLink = document.getElementById("register-link");
+  const logoutButton = document.getElementById("logout-button");
+
+  const session = getCurrentSession();
+
+  if (session) {
+    if (loginLink) {
+      loginLink.style.display = "none";
+    }
+
+    if (registerLink) {
+      registerLink.style.display = "none";
+    }
+
+    if (ordersLink) {
+      ordersLink.style.display = "inline-flex";
+    }
+
+    if (logoutButton) {
+      logoutButton.style.display = "inline-flex";
+      logoutButton.addEventListener("click", logout);
+    }
+
+    if (userName) {
+      userName.textContent = `Olá, ${session.name}`;
+      userName.style.display = "inline-flex";
+    }
+  }
 });
 
 /* =========================================================
@@ -164,7 +196,11 @@ async function handleLogin(event) {
     }
 
     setTimeout(() => {
-      window.location.href = "index.html";
+      if (user.role === "ADMIN") {
+        window.location.href = "admin/index.html";
+      } else {
+        window.location.href = "index.html";
+      }
     }, 700);
   } catch (error) {
     console.error("Erro ao conectar com a API:", error);

@@ -1,751 +1,375 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Painel Administrativo | Multicheiros</title>
 
-    <link
-        rel="stylesheet"
-        href="../css/global.css"
-    >
+    <link rel="stylesheet" href="../css/global.css" />
 
-    <link
-        rel="stylesheet"
-        href="../css/admin.css"
-    >
+    <link rel="stylesheet" href="../css/admin.css" />
+  </head>
 
-</head>
-
-
-<body class="admin-page">
-
-
+  <body class="admin-page">
     <!-- =====================================================
          ESTRUTURA PRINCIPAL
     ====================================================== -->
 
     <div class="admin-layout">
-
-
-        <!-- =================================================
+      <!-- =================================================
              SIDEBAR
         ================================================== -->
 
-        <aside class="admin-sidebar">
+      <aside class="admin-sidebar">
+        <!-- LOGO -->
 
+        <div class="admin-brand">
+          <a href="../index.html" class="admin-logo"> MULTICHEIROS </a>
 
-            <!-- LOGO -->
+          <span class="admin-label"> ADMIN </span>
+        </div>
 
-            <div class="admin-brand">
-
-                <a
-                    href="../index.html"
-                    class="admin-logo"
-                >
-                    MULTICHEIROS
-                </a>
-
-                <span class="admin-label">
-                    ADMIN
-                </span>
-
-            </div>
-
-
-            <!-- =================================================
+        <!-- =================================================
                  NAVEGAÇÃO
             ================================================== -->
 
-            <nav class="admin-navigation">
+        <nav class="admin-navigation">
+          <span class="admin-nav-title"> PAINEL </span>
 
+          <!-- Dashboard -->
 
-                <span class="admin-nav-title">
-                    PAINEL
-                </span>
+          <a href="admin.html" class="admin-nav-link active">
+            <span class="admin-nav-icon"> ▦ </span>
 
+            <span> Dashboard </span>
+          </a>
 
-                <!-- Dashboard -->
+          <!-- Produtos -->
 
-                <a
-                    href="admin.html"
-                    class="admin-nav-link active"
-                >
+          <a href="produtos.html" class="admin-nav-link">
+            <span class="admin-nav-icon"> ◫ </span>
 
-                    <span class="admin-nav-icon">
-                        ▦
-                    </span>
+            <span> Produtos </span>
+          </a>
 
-                    <span>
-                        Dashboard
-                    </span>
+          <!-- Usuários -->
 
-                </a>
+          <a href="usuarios.html" class="admin-nav-link">
+            <span class="admin-nav-icon"> ◉ </span>
 
+            <span> Usuários </span>
+          </a>
 
-                <!-- Produtos -->
+          <!-- Pedidos -->
 
-                <a
-                    href="produtos.html"
-                    class="admin-nav-link"
-                >
+          <a href="#" class="admin-nav-link">
+            <span class="admin-nav-icon"> ≡ </span>
 
-                    <span class="admin-nav-icon">
-                        ◫
-                    </span>
+            <span> Pedidos </span>
+          </a>
 
-                    <span>
-                        Produtos
-                    </span>
+          <span class="admin-nav-title"> GERENCIAMENTO </span>
 
-                </a>
+          <!-- Novo produto -->
 
+          <a href="produto-form.html" class="admin-nav-link">
+            <span class="admin-nav-icon"> + </span>
 
-                <!-- Usuários -->
+            <span> Novo produto </span>
+          </a>
+        </nav>
 
-                <a
-                    href="usuarios.html"
-                    class="admin-nav-link"
-                >
-
-                    <span class="admin-nav-icon">
-                        ◉
-                    </span>
-
-                    <span>
-                        Usuários
-                    </span>
-
-                </a>
-
-
-                <!-- Pedidos -->
-
-                <a
-                    href="#"
-                    class="admin-nav-link"
-                >
-
-                    <span class="admin-nav-icon">
-                        ≡
-                    </span>
-
-                    <span>
-                        Pedidos
-                    </span>
-
-                </a>
-
-
-                <span class="admin-nav-title">
-                    GERENCIAMENTO
-                </span>
-
-
-                <!-- Novo produto -->
-
-                <a
-                    href="produto-form.html"
-                    class="admin-nav-link"
-                >
-
-                    <span class="admin-nav-icon">
-                        +
-                    </span>
-
-                    <span>
-                        Novo produto
-                    </span>
-
-                </a>
-
-
-            </nav>
-
-
-            <!-- =================================================
+        <!-- =================================================
                  PARTE INFERIOR DA SIDEBAR
             ================================================== -->
 
-            <div class="admin-sidebar-footer">
+        <div class="admin-sidebar-footer">
+          <!-- Voltar para loja -->
 
+          <a href="../index.html" class="admin-sidebar-action">
+            <span> ← </span>
 
-                <!-- Voltar para loja -->
+            <span> Voltar para loja </span>
+          </a>
 
-                <a
-                    href="../index.html"
-                    class="admin-sidebar-action"
-                >
+          <!-- Logout -->
 
-                    <span>
-                        ←
-                    </span>
+          <button
+            type="button"
+            class="admin-sidebar-action admin-logout"
+            id="admin-logout"
+          >
+            <span> ↪ </span>
 
-                    <span>
-                        Voltar para loja
-                    </span>
+            <span> Sair </span>
+          </button>
+        </div>
+      </aside>
 
-                </a>
-
-
-                <!-- Logout -->
-
-                <button
-                    type="button"
-                    class="admin-sidebar-action admin-logout"
-                    id="admin-logout"
-                >
-
-                    <span>
-                        ↪
-                    </span>
-
-                    <span>
-                        Sair
-                    </span>
-
-                </button>
-
-            </div>
-
-
-        </aside>
-
-
-        <!-- =====================================================
+      <!-- =====================================================
              ÁREA PRINCIPAL
         ====================================================== -->
 
-        <main class="admin-main">
-
-
-            <!-- =================================================
+      <main class="admin-main">
+        <!-- =================================================
                  HEADER DO PAINEL
             ================================================== -->
 
-            <header class="admin-header">
+        <header class="admin-header">
+          <div class="admin-header-content">
+            <!-- Título -->
 
+            <div>
+              <span class="admin-page-label"> PAINEL ADMINISTRATIVO </span>
 
-                <div class="admin-header-content">
+              <h1>Dashboard</h1>
 
+              <p>Gerencie sua loja Multicheiros.</p>
+            </div>
 
-                    <!-- Título -->
+            <!-- Ações -->
 
-                    <div>
+            <div class="admin-header-actions">
+              <a href="../index.html" class="admin-store-button"> Ver loja </a>
 
-                        <span class="admin-page-label">
-                            PAINEL ADMINISTRATIVO
-                        </span>
+              <a href="produto-form.html" class="admin-primary-button">
+                + Novo produto
+              </a>
+            </div>
+          </div>
+        </header>
 
-                        <h1>
-                            Dashboard
-                        </h1>
-
-                        <p>
-                            Gerencie sua loja Multicheiros.
-                        </p>
-
-                    </div>
-
-
-                    <!-- Ações -->
-
-                    <div class="admin-header-actions">
-
-
-                        <a
-                            href="../index.html"
-                            class="admin-store-button"
-                        >
-                            Ver loja
-                        </a>
-
-
-                        <a
-                            href="produto-form.html"
-                            class="admin-primary-button"
-                        >
-                            + Novo produto
-                        </a>
-
-
-                    </div>
-
-
-                </div>
-
-
-            </header>
-
-
-            <!-- =================================================
+        <!-- =================================================
                  CONTEÚDO
             ================================================== -->
 
-            <div class="admin-content">
-
-
-                <!-- =================================================
+        <div class="admin-content">
+          <!-- =================================================
                      CARDS DE RESUMO
                 ================================================== -->
 
-                <section class="admin-stats">
+          <section class="admin-stats">
+            <!-- Produtos -->
 
+            <article class="admin-stat-card">
+              <div class="admin-stat-info">
+                <span class="admin-stat-label"> Produtos </span>
 
-                    <!-- Produtos -->
+                <strong class="admin-stat-value" id="admin-products-count">
+                  0
+                </strong>
 
-                    <article class="admin-stat-card">
+                <span class="admin-stat-description">
+                  Produtos cadastrados
+                </span>
+              </div>
 
-                        <div class="admin-stat-info">
+              <div class="admin-stat-icon">◫</div>
+            </article>
 
-                            <span class="admin-stat-label">
-                                Produtos
-                            </span>
+            <!-- Usuários -->
 
-                            <strong
-                                class="admin-stat-value"
-                                id="admin-products-count"
-                            >
-                                0
-                            </strong>
+            <article class="admin-stat-card">
+              <div class="admin-stat-info">
+                <span class="admin-stat-label"> Usuários </span>
 
-                            <span class="admin-stat-description">
-                                Produtos cadastrados
-                            </span>
+                <strong class="admin-stat-value" id="admin-users-count">
+                  0
+                </strong>
 
-                        </div>
+                <span class="admin-stat-description"> Contas cadastradas </span>
+              </div>
 
+              <div class="admin-stat-icon">◉</div>
+            </article>
 
-                        <div class="admin-stat-icon">
-                            ◫
-                        </div>
+            <!-- Pedidos -->
 
-                    </article>
+            <article class="admin-stat-card">
+              <div class="admin-stat-info">
+                <span class="admin-stat-label"> Pedidos </span>
 
+                <strong class="admin-stat-value" id="admin-orders-count">
+                  0
+                </strong>
 
-                    <!-- Usuários -->
+                <span class="admin-stat-description"> Pedidos realizados </span>
+              </div>
 
-                    <article class="admin-stat-card">
+              <div class="admin-stat-icon">≡</div>
+            </article>
 
-                        <div class="admin-stat-info">
+            <!-- Vendas -->
 
-                            <span class="admin-stat-label">
-                                Usuários
-                            </span>
+            <article class="admin-stat-card">
+              <div class="admin-stat-info">
+                <span class="admin-stat-label"> Vendas </span>
 
-                            <strong
-                                class="admin-stat-value"
-                                id="admin-users-count"
-                            >
-                                0
-                            </strong>
+                <strong class="admin-stat-value" id="admin-sales-total">
+                  R$ 0,00
+                </strong>
 
-                            <span class="admin-stat-description">
-                                Contas cadastradas
-                            </span>
+                <span class="admin-stat-description"> Total vendido </span>
+              </div>
 
-                        </div>
+              <div class="admin-stat-icon">$</div>
+            </article>
+          </section>
 
-
-                        <div class="admin-stat-icon">
-                            ◉
-                        </div>
-
-                    </article>
-
-
-                    <!-- Pedidos -->
-
-                    <article class="admin-stat-card">
-
-                        <div class="admin-stat-info">
-
-                            <span class="admin-stat-label">
-                                Pedidos
-                            </span>
-
-                            <strong
-                                class="admin-stat-value"
-                                id="admin-orders-count"
-                            >
-                                0
-                            </strong>
-
-                            <span class="admin-stat-description">
-                                Pedidos realizados
-                            </span>
-
-                        </div>
-
-
-                        <div class="admin-stat-icon">
-                            ≡
-                        </div>
-
-                    </article>
-
-
-                    <!-- Vendas -->
-
-                    <article class="admin-stat-card">
-
-                        <div class="admin-stat-info">
-
-                            <span class="admin-stat-label">
-                                Vendas
-                            </span>
-
-                            <strong
-                                class="admin-stat-value"
-                                id="admin-sales-total"
-                            >
-                                R$ 0,00
-                            </strong>
-
-                            <span class="admin-stat-description">
-                                Total vendido
-                            </span>
-
-                        </div>
-
-
-                        <div class="admin-stat-icon">
-                            $
-                        </div>
-
-                    </article>
-
-
-                </section>
-
-
-                <!-- =================================================
+          <!-- =================================================
                      ÁREA PRINCIPAL DO DASHBOARD
                 ================================================== -->
 
-                <div class="admin-dashboard-grid">
-
-
-                    <!-- =================================================
+          <div class="admin-dashboard-grid">
+            <!-- =================================================
                          PEDIDOS RECENTES
                     ================================================== -->
 
-                    <section class="admin-panel">
+            <section class="admin-panel">
+              <div class="admin-panel-header">
+                <div>
+                  <h2>Pedidos recentes</h2>
 
+                  <p>Últimos pedidos realizados na loja.</p>
+                </div>
 
-                        <div class="admin-panel-header">
+                <a href="#" class="admin-panel-link"> Ver todos </a>
+              </div>
 
-                            <div>
+              <!-- Tabela -->
 
-                                <h2>
-                                    Pedidos recentes
-                                </h2>
+              <div class="admin-table-wrapper">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Pedido</th>
 
-                                <p>
-                                    Últimos pedidos realizados na loja.
-                                </p>
+                      <th>Cliente</th>
 
-                            </div>
+                      <th>Data</th>
 
+                      <th>Valor</th>
 
-                            <a
-                                href="#"
-                                class="admin-panel-link"
-                            >
-                                Ver todos
-                            </a>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
 
-                        </div>
-
-
-                        <!-- Tabela -->
-
-                        <div class="admin-table-wrapper">
-
-                            <table class="admin-table">
-
-                                <thead>
-
-                                    <tr>
-
-                                        <th>
-                                            Pedido
-                                        </th>
-
-                                        <th>
-                                            Cliente
-                                        </th>
-
-                                        <th>
-                                            Data
-                                        </th>
-
-                                        <th>
-                                            Valor
-                                        </th>
-
-                                        <th>
-                                            Status
-                                        </th>
-
-                                    </tr>
-
-                                </thead>
-
-
-                                <tbody id="recent-orders">
-
-                                    <!--
+                  <tbody id="recent-orders">
+                    <!--
                                         Os pedidos serão inseridos
                                         posteriormente pelo JavaScript.
                                     -->
 
-                                    <tr class="admin-table-empty">
+                    <tr class="admin-table-empty">
+                      <td colspan="5">Nenhum pedido encontrado.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
 
-                                        <td
-                                            colspan="5"
-                                        >
-
-                                            Nenhum pedido
-                                            encontrado.
-
-                                        </td>
-
-                                    </tr>
-
-                                </tbody>
-
-                            </table>
-
-                        </div>
-
-
-                    </section>
-
-
-                    <!-- =================================================
+            <!-- =================================================
                          AÇÕES RÁPIDAS
                     ================================================== -->
 
-                    <section class="admin-panel admin-quick-panel">
+            <section class="admin-panel admin-quick-panel">
+              <div class="admin-panel-header">
+                <div>
+                  <h2>Ações rápidas</h2>
 
-
-                        <div class="admin-panel-header">
-
-                            <div>
-
-                                <h2>
-                                    Ações rápidas
-                                </h2>
-
-                                <p>
-                                    Acesse rapidamente as funções
-                                    administrativas.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="admin-quick-actions">
-
-
-                            <a
-                                href="produto-form.html"
-                                class="admin-quick-action"
-                            >
-
-                                <span class="admin-quick-icon">
-                                    +
-                                </span>
-
-                                <div>
-
-                                    <strong>
-                                        Adicionar produto
-                                    </strong>
-
-                                    <span>
-                                        Cadastrar um novo produto
-                                    </span>
-
-                                </div>
-
-                            </a>
-
-
-                            <a
-                                href="produtos.html"
-                                class="admin-quick-action"
-                            >
-
-                                <span class="admin-quick-icon">
-                                    ◫
-                                </span>
-
-                                <div>
-
-                                    <strong>
-                                        Gerenciar produtos
-                                    </strong>
-
-                                    <span>
-                                        Editar ou excluir produtos
-                                    </span>
-
-                                </div>
-
-                            </a>
-
-
-                            <a
-                                href="usuarios.html"
-                                class="admin-quick-action"
-                            >
-
-                                <span class="admin-quick-icon">
-                                    ◉
-                                </span>
-
-                                <div>
-
-                                    <strong>
-                                        Gerenciar usuários
-                                    </strong>
-
-                                    <span>
-                                        Visualizar usuários cadastrados
-                                    </span>
-
-                                </div>
-
-                            </a>
-
-
-                        </div>
-
-
-                    </section>
-
-
+                  <p>Acesse rapidamente as funções administrativas.</p>
                 </div>
+              </div>
 
+              <div class="admin-quick-actions">
+                <a href="produto-form.html" class="admin-quick-action">
+                  <span class="admin-quick-icon"> + </span>
 
-                <!-- =================================================
+                  <div>
+                    <strong> Adicionar produto </strong>
+
+                    <span> Cadastrar um novo produto </span>
+                  </div>
+                </a>
+
+                <a href="produtos.html" class="admin-quick-action">
+                  <span class="admin-quick-icon"> ◫ </span>
+
+                  <div>
+                    <strong> Gerenciar produtos </strong>
+
+                    <span> Editar ou excluir produtos </span>
+                  </div>
+                </a>
+
+                <a href="usuarios.html" class="admin-quick-action">
+                  <span class="admin-quick-icon"> ◉ </span>
+
+                  <div>
+                    <strong> Gerenciar usuários </strong>
+
+                    <span> Visualizar usuários cadastrados </span>
+                  </div>
+                </a>
+              </div>
+            </section>
+          </div>
+
+          <!-- =================================================
                      PRODUTOS COM ESTOQUE
                 ================================================== -->
 
-                <section class="admin-panel">
+          <section class="admin-panel">
+            <div class="admin-panel-header">
+              <div>
+                <h2>Estoque</h2>
 
+                <p>Situação atual dos produtos cadastrados.</p>
+              </div>
 
-                    <div class="admin-panel-header">
-
-                        <div>
-
-                            <h2>
-                                Estoque
-                            </h2>
-
-                            <p>
-                                Situação atual dos produtos cadastrados.
-                            </p>
-
-                        </div>
-
-
-                        <a
-                            href="produtos.html"
-                            class="admin-panel-link"
-                        >
-                            Gerenciar produtos
-                        </a>
-
-                    </div>
-
-
-                    <div class="admin-stock-grid">
-
-
-                        <!-- Estoque total -->
-
-                        <div class="admin-stock-item">
-
-                            <span class="admin-stock-label">
-                                Produtos em estoque
-                            </span>
-
-                            <strong
-                                id="admin-stock-available"
-                            >
-                                0
-                            </strong>
-
-                        </div>
-
-
-                        <!-- Estoque baixo -->
-
-                        <div class="admin-stock-item warning">
-
-                            <span class="admin-stock-label">
-                                Estoque baixo
-                            </span>
-
-                            <strong
-                                id="admin-stock-low"
-                            >
-                                0
-                            </strong>
-
-                        </div>
-
-
-                        <!-- Sem estoque -->
-
-                        <div class="admin-stock-item danger">
-
-                            <span class="admin-stock-label">
-                                Sem estoque
-                            </span>
-
-                            <strong
-                                id="admin-stock-out"
-                            >
-                                0
-                            </strong>
-
-                        </div>
-
-
-                    </div>
-
-
-                </section>
-
-
+              <a href="produtos.html" class="admin-panel-link">
+                Gerenciar produtos
+              </a>
             </div>
 
+            <div class="admin-stock-grid">
+              <!-- Estoque total -->
 
-        </main>
+              <div class="admin-stock-item">
+                <span class="admin-stock-label"> Produtos em estoque </span>
 
+                <strong id="admin-stock-available"> 0 </strong>
+              </div>
 
+              <!-- Estoque baixo -->
+
+              <div class="admin-stock-item warning">
+                <span class="admin-stock-label"> Estoque baixo </span>
+
+                <strong id="admin-stock-low"> 0 </strong>
+              </div>
+
+              <!-- Sem estoque -->
+
+              <div class="admin-stock-item danger">
+                <span class="admin-stock-label"> Sem estoque </span>
+
+                <strong id="admin-stock-out"> 0 </strong>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
     </div>
-
 
     <!-- =====================================================
          JAVASCRIPT
     ====================================================== -->
 
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
     <script src="../js/admin.js"></script>
-
-</body>
-
+  </body>
 </html>
