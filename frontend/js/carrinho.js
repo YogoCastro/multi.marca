@@ -12,12 +12,6 @@
     CONFIGURAÇÃO
 ========================================================= */
 
-const session = getCurrentSession();
-
-if (!session) {
-  window.location.href = "login.html";
-}
-
 const CART_STORAGE_KEY = "multicheiros_cart";
 
 /* =========================================================
