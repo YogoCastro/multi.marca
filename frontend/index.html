@@ -3,39 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Multicheiros | Loja</title>
-
-    <!-- CSS principal -->
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/loja.css" />
   </head>
-
   <body>
-    <!-- =====================================================
-        CABEÇALHO
-    ====================================================== -->
     <header class="header">
       <div class="header-container">
-        <!-- Logo -->
         <a href="index.html" class="logo"> MULTICHEIROS </a>
-
-        <!-- Navegação -->
         <nav class="navigation">
           <a href="index.html" class="nav-link active"> Início </a>
-
           <a href="#produtos" class="nav-link"> Produtos </a>
         </nav>
-
-        <!-- Ações do usuário -->
         <div class="header-actions">
           <span id="user-name" style="display: none"></span>
           <a href="login.html" class="login-button" id="login-link"> Entrar </a>
-
           <a href="cadastro.html" class="register-button" id="register-link">
             Criar conta
           </a>
-
           <a
             href="pedidos.html"
             class="login-button"
@@ -44,7 +29,6 @@
           >
             Meus pedidos
           </a>
-
           <button
             type="button"
             class="login-button"
@@ -53,62 +37,38 @@
           >
             Sair
           </button>
-
-          <!-- Carrinho -->
           <a
             href="carrinho.html"
             class="cart-button"
             aria-label="Abrir carrinho"
           >
             <span class="cart-icon">🛒</span>
-
             <span class="cart-text"> Carrinho </span>
-
-            <!-- Quantidade de produtos -->
             <span class="cart-count" id="cart-count"> 0 </span>
           </a>
         </div>
       </div>
     </header>
-
-    <!-- =====================================================
-        CONTEÚDO PRINCIPAL
-    ====================================================== -->
     <main>
-      <!-- =================================================
-            BANNER PRINCIPAL
-        ================================================== -->
       <section class="hero">
         <div class="hero-container">
           <div class="hero-content">
             <span class="hero-label"> MULTICHEIROS </span>
-
             <h1>Encontre tudo o que você precisa</h1>
-
             <p>Confira nossos produtos e escolha o que combina com você.</p>
-
             <a href="#produtos" class="hero-button"> Ver produtos </a>
           </div>
         </div>
       </section>
-
-      <!-- =================================================
-            PRODUTOS
-        ================================================== -->
       <section class="products-section" id="produtos">
         <div class="section-container">
-          <!-- Cabeçalho da seção -->
           <div class="section-header">
             <div>
               <span class="section-label"> NOSSA LOJA </span>
-
               <h2>Produtos</h2>
             </div>
-
-            <!-- Futuramente podemos colocar filtros aqui -->
             <div class="products-filter">
               <label for="product-search"> Buscar </label>
-
               <input
                 type="search"
                 id="product-search"
@@ -117,19 +77,7 @@
               />
             </div>
           </div>
-
-          <!-- =================================================
-                    GRID DE PRODUTOS
-
-                    IMPORTANTE:
-
-                    O JavaScript futuramente poderá selecionar
-                    #products-container e inserir os produtos
-                    recebidos da API.
-                ================================================== -->
-
           <div class="products-grid" id="products-container">
-            <!-- PRODUTO 1 -->
             <article class="product-card" data-product-id="1">
               <div class="product-image">
                 <img
@@ -137,15 +85,11 @@
                   alt="Imagem do produto"
                 />
               </div>
-
               <div class="product-info">
                 <h3 class="product-name">Produto exemplo</h3>
-
                 <p class="product-description">Descrição do produto.</p>
-
                 <div class="product-footer">
                   <span class="product-price"> R$ 59,90 </span>
-
                   <button
                     type="button"
                     class="add-cart-button"
@@ -156,8 +100,6 @@
                 </div>
               </div>
             </article>
-
-            <!-- PRODUTO 2 -->
             <article class="product-card" data-product-id="2">
               <div class="product-image">
                 <img
@@ -165,15 +107,11 @@
                   alt="Imagem do produto"
                 />
               </div>
-
               <div class="product-info">
                 <h3 class="product-name">Produto exemplo 2</h3>
-
                 <p class="product-description">Descrição do produto.</p>
-
                 <div class="product-footer">
                   <span class="product-price"> R$ 89,90 </span>
-
                   <button
                     type="button"
                     class="add-cart-button"
@@ -184,8 +122,6 @@
                 </div>
               </div>
             </article>
-
-            <!-- PRODUTO 3 -->
             <article class="product-card" data-product-id="3">
               <div class="product-image">
                 <img
@@ -193,15 +129,11 @@
                   alt="Imagem do produto"
                 />
               </div>
-
               <div class="product-info">
                 <h3 class="product-name">Produto exemplo 3</h3>
-
                 <p class="product-description">Descrição do produto.</p>
-
                 <div class="product-footer">
                   <span class="product-price"> R$ 129,90 </span>
-
                   <button
                     type="button"
                     class="add-cart-button"
@@ -212,8 +144,6 @@
                 </div>
               </div>
             </article>
-
-            <!-- PRODUTO 4 -->
             <article class="product-card" data-product-id="4">
               <div class="product-image">
                 <img
@@ -221,15 +151,11 @@
                   alt="Imagem do produto"
                 />
               </div>
-
               <div class="product-info">
                 <h3 class="product-name">Produto exemplo 4</h3>
-
                 <p class="product-description">Descrição do produto.</p>
-
                 <div class="product-footer">
                   <span class="product-price"> R$ 39,90 </span>
-
                   <button
                     type="button"
                     class="add-cart-button"
@@ -241,47 +167,31 @@
               </div>
             </article>
           </div>
-
-          <!-- Mensagem para quando não houver produtos -->
           <div class="empty-products" id="empty-products" hidden>
             <h3>Nenhum produto encontrado</h3>
-
             <p>Não encontramos produtos para sua busca.</p>
           </div>
         </div>
       </section>
     </main>
-
-    <!-- =====================================================
-        RODAPÉ
-    ====================================================== -->
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-brand">
           <a href="index.html" class="logo"> MULTICHEIROS </a>
-
           <p>Sua loja online.</p>
         </div>
-
         <div class="footer-links">
           <h3>Loja</h3>
-
           <a href="index.html"> Início </a>
-
           <a href="#produtos"> Produtos </a>
-
           <a href="carrinho.html"> Carrinho </a>
         </div>
-
         <div class="footer-links">
           <h3>Conta</h3>
-
           <a href="login.html"> Entrar </a>
-
           <a href="cadastro.html"> Criar conta </a>
         </div>
       </div>
-
       <div class="footer-bottom">
         <p>© 2026 Multicheiros. Todos os direitos reservados.</p>
       </div>
