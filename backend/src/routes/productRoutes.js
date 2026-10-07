@@ -3,6 +3,7 @@ const express = require("express");
 const productController = require("../controllers/productController");
 const authMiddleware = require("../middlewares/authMiddleware");
 const roleMiddleware = require("../middlewares/roleMiddleware");
+const upload = require("../middlewares/uploadMiddleware");
 
 const router = express.Router();
 
@@ -17,6 +18,7 @@ router.put(
   "/:id",
   authMiddleware,
   roleMiddleware("ADMIN"),
+  upload.array("image", 10),
   productController.updateProduct,
 );
 
@@ -29,10 +31,12 @@ router.delete(
 );
 
 //Criar produto - somente ADMIN YC
+
 router.post(
   "/",
   authMiddleware,
   roleMiddleware("ADMIN"),
+  upload.array("image", 10),
   productController.createProduct,
 );
 

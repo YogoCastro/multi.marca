@@ -86,20 +86,58 @@ function createProductCard(product) {
 
   const hasStock = Number(product.stock) > 0;
 
-  const imageHTML = product.image
-    ? `
-            <img
-                src="${escapeHTML(product.image)}"
-                alt="${escapeHTML(product.name)}"
-            >
-        `
-    : `
-            <div class="product-image-placeholder">
-                <span>
-                    Produto
-                </span>
-            </div>
-        `;
+  const productImages =
+    product.images && product.images.length > 0
+      ? product.images
+      : product.image
+        ? [{ image: product.image }]
+        : [];
+
+  const imageHTML =
+    productImages.length > 0
+      ? `
+        <div class="product-image-carousel">
+          <button
+            type="button"
+            class="carousel-button carousel-prev"
+            aria-label="Imagem anterior"
+          >
+            ‹
+          </button>
+
+          <div class="product-image-track">
+            ${productImages
+              .map(
+                (item, index) => `
+                  <img
+                    class="product-carousel-image ${
+                      index === 0 ? "active" : ""
+                    }"
+                    src="${API_URL.replace("/api", "")}${escapeHTML(item.image)}"
+                    alt="${escapeHTML(product.name)}"
+                    data-image-index="${index}"
+                  >
+                `,
+              )
+              .join("")}
+          </div>
+
+          <button
+            type="button"
+            class="carousel-button carousel-next"
+            aria-label="Próxima imagem"
+          >
+            ›
+          </button>
+        </div>
+      `
+      : `
+        <div class="product-image-placeholder">
+          <span>
+            Produto
+          </span>
+        </div>
+      `;
 
   article.innerHTML = `
 
@@ -129,14 +167,27 @@ function createProductCard(product) {
                 </strong>
 
 
+              <div class="product-buttons">
+
                 <button
-                    type="button"
-                    class="add-to-cart-button"
-                    data-product-id="${escapeHTML(product.id)}"
-                    ${!hasStock ? "disabled" : ""}
+                  type="button"
+                  class="add-to-cart-button"
+                  data-product-id="${escapeHTML(product.id)}"
+                  ${!hasStock ? "disabled" : ""}
                 >
-                    ${hasStock ? "Adicionar ao carrinho" : "Sem estoque"}
+                  ${hasStock ? "Adicionar ao carrinho" : "Sem estoque"}
                 </button>
+
+                <button
+                  type="button"
+                  class="buy-now-button"
+                  data-product-id="${escapeHTML(product.id)}"
+                  ${!hasStock ? "disabled" : ""}
+                > 
+                  Comprar agora
+                </button>
+
+              </div>
 
             </div>
 
@@ -145,6 +196,10 @@ function createProductCard(product) {
     `;
 
   setupAddToCartButton(article);
+  setupBuyNowButton(article);
+  setupProductCarousel(article);
+
+  return article;
 
   return article;
 }
@@ -193,6 +248,78 @@ function setupAddToCartButton(card) {
     window.addToCart(product);
 
     showAddedFeedback(button);
+  });
+}
+
+function setupBuyNowButton(card) {
+  const button = card.querySelector(".buy-now-button");
+
+  if (!button) {
+    return;
+  }
+
+  button.addEventListener("click", () => {
+    const productId = button.dataset.productId;
+
+    const product = products.find(
+      (item) => String(item.id) === String(productId),
+    );
+
+    if (!product) {
+      console.error("Produto não encontrado:", productId);
+      return;
+    }
+
+    if (Number(product.stock) <= 0) {
+      return;
+    }
+
+    if (typeof window.addToCart !== "function") {
+      console.error(
+        "A função addToCart não está disponível. " +
+          "Verifique se carrinho.js foi carregado.",
+      );
+
+      return;
+    }
+
+    window.addToCart(product);
+
+    window.location.href = "carrinho.html";
+  });
+}
+
+function setupProductCarousel(card) {
+  const images = card.querySelectorAll(".product-carousel-image");
+
+  const previousButton = card.querySelector(".carousel-prev");
+  const nextButton = card.querySelector(".carousel-next");
+
+  if (images.length <= 1) {
+    previousButton.style.display = "none";
+    nextButton.style.display = "none";
+
+    return;
+  }
+
+  let currentIndex = 0;
+
+  function showImage(index) {
+    images.forEach((image, imageIndex) => {
+      image.classList.toggle("active", imageIndex === index);
+    });
+  }
+
+  previousButton.addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+
+    showImage(currentIndex);
+  });
+
+  nextButton.addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % images.length;
+
+    showImage(currentIndex);
   });
 }
 

@@ -2,7 +2,13 @@ const productService = require("../services/productService");
 
 const createProduct = async (req, res) => {
   try {
-    const { name, description, price, stock, image } = req.body;
+    const { name, description, price, stock } = req.body;
+
+    console.log("ARQUIVOS RECEBIDOS:", req.files);
+
+    const image = req.files?.length
+      ? `/uploads/products/${req.files[0].filename}`
+      : null;
 
     if (!name || price === undefined || stock === undefined) {
       return res.status(400).json({
@@ -10,12 +16,17 @@ const createProduct = async (req, res) => {
       });
     }
 
+    const images = req.files
+      ? req.files.map((file) => `/uploads/products/${file.filename}`)
+      : [];
+
     const product = await productService.createProduct({
       name,
       description,
       price,
       stock,
       image,
+      images,
     });
 
     res.status(201).json({
@@ -75,7 +86,11 @@ const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const { name, description, price, stock, image } = req.body;
+    const { name, description, price, stock } = req.body;
+
+    const image = req.file.length
+      ? `/uploads/products/${req.file.filename}`
+      : undefined;
 
     if (!name || price === undefined || stock === undefined) {
       return res.status(400).json({

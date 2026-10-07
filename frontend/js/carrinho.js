@@ -35,6 +35,38 @@ const couponMessage = document.getElementById("coupon-message");
 const checkoutButton = document.getElementById("checkout-button");
 
 /* =========================================================
+    TOAST
+========================================================= */
+
+function showToast(message, type = "success") {
+  const existingToast = document.querySelector(".toast");
+
+  if (existingToast) {
+    existingToast.remove();
+  }
+
+  const toast = document.createElement("div");
+
+  toast.className = `toast ${type}`;
+
+  toast.textContent = message;
+
+  document.body.appendChild(toast);
+
+  requestAnimationFrame(() => {
+    toast.classList.add("show");
+  });
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+
+    setTimeout(() => {
+      toast.remove();
+    }, 250);
+  }, 3000);
+}
+
+/* =========================================================
     ESTADO
 ========================================================= */
 
@@ -204,7 +236,9 @@ async function addToCart(product) {
 
     console.log("Produto adicionado ao carrinho:", data);
 
-    alert("Produto adicionado ao carrinho!");
+    await loadCartFromAPI();
+
+    showToast("Produto adicionado ao carrinho!", "success");
   } catch (error) {
     console.error("Erro ao conectar com a API:", error);
 
@@ -380,12 +414,6 @@ async function decreaseQuantity(productId) {
 ========================================================= */
 
 function renderCart() {
-  if (!cartItemsContainer) {
-    return;
-  }
-
-  cartItemsContainer.innerHTML = "";
-
   const totalItems = getTotalItems();
 
   updateCartCount(totalItems);
@@ -393,6 +421,12 @@ function renderCart() {
   if (cartItemsCount) {
     cartItemsCount.textContent = `${totalItems} ${totalItems === 1 ? "item" : "itens"}`;
   }
+
+  if (!cartItemsContainer) {
+    return;
+  }
+
+  cartItemsContainer.innerHTML = "";
 
   if (cart.length === 0) {
     showEmptyCart();

@@ -163,8 +163,6 @@ async function setupProductForm() {
 
       document.getElementById("product-stock").value = product.stock ?? "";
 
-      document.getElementById("product-image").value = product.image || "";
-
       document.getElementById("product-description").value =
         product.description || "";
     } catch (error) {
@@ -185,13 +183,27 @@ async function setupProductForm() {
       return;
     }
 
-    const product = {
-      name: document.getElementById("product-name").value.trim(),
-      price: Number(document.getElementById("product-price").value),
-      stock: Number(document.getElementById("product-stock").value),
-      image: document.getElementById("product-image").value.trim(),
-      description: document.getElementById("product-description").value.trim(),
-    };
+    const imageInput = document.getElementById("product-image");
+
+    const formData = new FormData();
+
+    formData.append(
+      "name",
+      document.getElementById("product-name").value.trim(),
+    );
+
+    formData.append("price", document.getElementById("product-price").value);
+
+    formData.append("stock", document.getElementById("product-stock").value);
+
+    formData.append(
+      "description",
+      document.getElementById("product-description").value.trim(),
+    );
+
+    for (const file of imageInput.files) {
+      formData.append("image", file);
+    }
 
     const isEditing = Boolean(productId);
 
@@ -200,11 +212,12 @@ async function setupProductForm() {
         isEditing ? `${API_URL}/products/${productId}` : `${API_URL}/products`,
         {
           method: isEditing ? "PUT" : "POST",
+
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${currentSession.token}`,
           },
-          body: JSON.stringify(product),
+
+          body: formData,
         },
       );
 

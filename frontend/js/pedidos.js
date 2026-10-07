@@ -70,7 +70,7 @@ async function loadOrders() {
 
     <p>
         <strong>Produto:</strong>
-        ${order.product_name}
+        ${order.name}
     </p>
 
     <p>
