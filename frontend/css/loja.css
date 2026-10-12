@@ -16,18 +16,32 @@
   gap: 30px;
 }
 
-.logo {
-  display: inline-flex;
-  align-items: center;
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  color: var(--primary);
-  white-space: nowrap;
+.header-brand {
+    text-align: center;
 }
 
-.logo:hover {
-  color: var(--accent);
+.brand-title {
+    font-family: "Times New Roman", Times, serif; /* Tipo de letra serifado */
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #4a3b32; /* Castanho escuro */
+    letter-spacing: normal; /* Espaçamento entre as letras */
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.brand-subtitle {
+    font-family: Arial, sans-serif; /* Tipo de letra sem serifa para o subtítulo */
+    font-size: 0.5rem;
+    color: #7a6b60; /* Castanho mais suave */
+    letter-spacing: 1px;
+    text-transform: lowercase;
+}
+
+.logo img{
+  display: inline-flex;
+  align-items: center;
+  width: 4rem;
 }
 
 .navigation {
@@ -67,6 +81,45 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.products-filter {
+    position: relative;
+    width: 280px;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.products-filter input {
+    width: 100%;
+    height: 42px;
+    padding: 0 42px 0 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+}
+
+.products-filter input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(181, 106, 42, 0.12);
+}
+
+.products-filter input::placeholder {
+    color: var(--text-light);
 }
 
 .login-button,
@@ -246,41 +299,6 @@
   letter-spacing: -1px;
 }
 
-.products-filter {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: 280px;
-}
-
-.products-filter label {
-  color: var(--text-secondary);
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.products-filter input {
-  width: 100%;
-  height: 42px;
-  padding: 0 14px;
-  color: var(--text);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-small);
-  outline: none;
-  transition:
-    border-color var(--transition),
-    box-shadow var(--transition);
-}
-
-.products-filter input::placeholder {
-  color: var(--text-light);
-}
-
-.products-filter input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(143, 79, 30, 0.12);
-}
 
 .products-grid {
   display: grid;

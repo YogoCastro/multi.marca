@@ -6,22 +6,46 @@
     <title>Multicheiros | Loja</title>
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/loja.css" />
+    <script src="https://kit.fontawesome.com/7cadf30ff8.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <header class="header">
       <div class="header-container">
-        <a href="index.html" class="logo"> MULTICHEIROS </a>
+        <div class="logo">
+          <img src="/frontend/assets/logomulticheiros.png" alt="Multicheiros" >
+        </div>
+        <div class="header-brand">
+          <h1 href="index.html" class="brand-title"> MULTICHEIROS </a>
+          <p class="brand-subtitle">essências • ambientes • experiências</p>
+        </div>
         <nav class="navigation">
           <a href="index.html" class="nav-link active"> Início </a>
           <a href="#produtos" class="nav-link"> Produtos </a>
+          <a href="#Sobre" class="nav-link">Sobre</a>
+          <a href="#Contato" class="nav-link">Contato</a>
         </nav>
+        <div class="products-filter">
+            <span class="search-icon">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+            <input
+              type="search"
+              id="product-search"
+              placeholder="Buscar produto..."
+              autocomplete="off"
+            />
+        </div>
         <div class="header-actions">
-          <span id="user-name" style="display: none"></span>
+          <span class="">
+            <i class="fa-regular fa-user"></i>
+          </span>
+          <!-- <span id="user-name" style="display: none"></span>
           <a href="login.html" class="login-button" id="login-link"> Entrar </a>
+          <i class="fa-thin fa-user"></i>
           <a href="cadastro.html" class="register-button" id="register-link">
             Criar conta
           </a>
-          <a
+        --> <a
             href="pedidos.html"
             class="login-button"
             id="orders-link"
@@ -41,9 +65,8 @@
             href="carrinho.html"
             class="cart-button"
             aria-label="Abrir carrinho"
-          >
+          > 
             <span class="cart-icon">🛒</span>
-            <span class="cart-text"> Carrinho </span>
             <span class="cart-count" id="cart-count"> 0 </span>
           </a>
         </div>
@@ -67,20 +90,11 @@
               <span class="section-label"> NOSSA LOJA </span>
               <h2>Produtos</h2>
             </div>
-            <div class="products-filter">
-              <label for="product-search"> Buscar </label>
-              <input
-                type="search"
-                id="product-search"
-                placeholder="Buscar produto..."
-                autocomplete="off"
-              />
-            </div>
           </div>
           <div class="products-grid" id="products-container">
             <article class="product-card" data-product-id="1">
                 <div class="product-image">
-                  <img src="https://imgs.search.brave.com/TrKpgBSzTi8sarNFVFaepWkWeQrlnisLq18cEg_f3e8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA3LzU0LzQzLzU2/LzM2MF9GXzc1NDQz/NTY4NF8wN1BqRWdz/TlBSa0JGSXdkOUJu/eXFoUEFmendJbFFM/bi5qcGc" alt="Produto Exemplo 1" class="product-image" />
+                  <img src="" />
                 </div>
                 <div class="product-info">
                   <span class="product-category">FLORAL • 250ML</span>
@@ -100,7 +114,7 @@
               </article>
               <article class="product-card" data-product-id="2">
                   <div class="product-image">
-                    <img src="https://imgs.search.brave.com/TrKpgBSzTi8sarNFVFaepWkWeQrlnisLq18cEg_f3e8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA3LzU0LzQzLzU2/LzM2MF9GXzc1NDQz/NTY4NF8wN1BqRWdz/TlBSa0JGSXdkOUJu/eXFoUEFmendJbFFM/bi5qcGc" alt="Produto Exemplo 2" class="product-image" />
+                    <img src="" alt="Produto Exemplo 2" class="product-image" />
                   </div>
                   <div class="product-info">
                     <span class="product-category">CÍTRICO • 200ML</span>
@@ -120,7 +134,7 @@
                 </article>
                 <article class="product-card" data-product-id="3">
                   <div class="product-image">
-                    <img src="https://imgs.search.brave.com/TrKpgBSzTi8sarNFVFaepWkWeQrlnisLq18cEg_f3e8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA3LzU0LzQzLzU2/LzM2MF9GXzc1NDQz/NTY4NF8wN1BqRWdz/TlBSa0JGSXdkOUJu/eXFoUEFmendJbFFM/bi5qcGc" alt="Produto Exemplo 3" class="product-image" />
+                    <img src="" alt="Produto Exemplo 3" class="product-image" />
                   </div>
                   <div class="product-info">
                     <span class="product-category">AMADEIRADO • 300ML</span>
@@ -139,7 +153,7 @@
                 </article>
                 <article class="product-card" data-product-id="4">
                   <div class="product-image">
-                    <img src="https://imgs.search.brave.com/TrKpgBSzTi8sarNFVFaepWkWeQrlnisLq18cEg_f3e8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA3LzU0LzQzLzU2/LzM2MF9GXzc1NDQz/NTY4NF8wN1BqRWdz/TlBSa0JGSXdkOUJu/eXFoUEFmendJbFFM/bi5qcGc" alt="Produto Exemplo 4" class="product-image" />
+                    <img src="" alt="Produto Exemplo 4" class="product-image" />
                   </div>
                   <div class="product-info">
                     <span class="product-category">ERVAS • 150ML</span>
@@ -157,6 +171,7 @@
                     </div>
                   </div>
                 </article>
+                <div class="carousel-dots" id="carousel-dots"></div>
           </div>
           <div class="empty-products" id="empty-products" hidden>
             <h3>Nenhum produto encontrado</h3>
