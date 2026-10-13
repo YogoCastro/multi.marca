@@ -208,137 +208,929 @@
   font-weight: 700;
 }
 
-.hero {
-  min-height: 460px;
+.hero-carousel {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  background-image: url('caminho/para/sua-foto-banner.jpg');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Mudado de flex-end para centralizar verticalmente */
+  box-sizing: border-box;
+}
+
+.hero-carousel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #f7f3ef 40%, rgba(247, 243, 239, 0.7) 65%, transparent 100%);
+  z-index: 1;
+}
+
+.hero-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #e6c7a3 0%, #cd9154 55%, #a86124 100%);
-  color: #ffffff;
+  padding: 0 60px;
+  box-sizing: border-box;
 }
 
-.hero-container {
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hero-content-wrapper {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  min-height: 460px;
 }
 
-.hero-content {
-  max-width: 650px;
-}
-
-.hero-label {
-  display: inline-block;
-  margin-bottom: 16px;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 2px;
-}
-
-.hero h1 {
-  max-width: 650px;
-  margin-bottom: 20px;
-  font-size: clamp(38px, 5vw, 64px);
-  line-height: 1.05;
-  letter-spacing: -2px;
-}
-
-.hero p {
+.hero-text-side {
   max-width: 520px;
-  margin-bottom: 30px;
-  color: rgba(255, 255, 255, 0.88);
-  font-size: 17px;
 }
 
-.hero-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: 0 24px;
-  border-radius: var(--radius-medium);
-  color: #5a3518;
-  background: #fff8f0;
-  font-size: 14px;
+.hero-eyebrow {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #78350f;
   font-weight: 700;
-  transition:
-    transform var(--transition),
-    background var(--transition);
+  display: block;
+  margin-bottom: 10px;
 }
 
-.hero-button:hover {
-  background: #f3e3d1;
-  transform: translateY(-2px);
+.hero-text-side h1 {
+  font-family: serif;
+  font-size: 3rem;
+  color: #1c1917;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  font-weight: 500;
 }
 
-.products-section {
-  padding: 80px 0;
+.hero-text-side p {
+  color: #57534e;
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+  line-height: 1.4;
+}
+
+.hero-btn {
+  display: inline-block;
+  background-color: #8b3e23;
+  color: #ffffff;
+  padding: 12px 26px;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.hero-btn:hover {
+  background-color: #6a2e19;
+}
+
+.hero-floating-text {
+  font-family: 'Brush Script MT', cursive, serif;
+  font-style: italic;
+  font-size: 1.4rem;
+  color: #ffffff;
+  text-align: right;
+  line-height: 1.3;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  margin-right: 40px;
+}
+
+.hero-dots-wrapper {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  pointer-events: none; /* Garante que o container não bloqueia cliques na página */
+}
+
+/* 4 Pontos Indicadores (Agora sem position: absolute, alinhados logo abaixo do botão) */
+.hero-dots {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 60px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  pointer-events: auto; /* Permite clicar nos botões dos pontos */
+  box-sizing: border-box;
+}
+
+.dot {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background-color: rgba(120, 53, 15, 0.3);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  width: 22px;
+  border-radius: 9999px;
+  background-color: #78350f;
+}
+
+/* Ajuste de responsividade para telemóveis */
+@media (max-width: 992px) {
+  .hero-dots {
+    padding: 0 24px;
+  }
+}
+
+/* Container da Seção */
+.categories-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Títulos */
+.section-header {
+  margin-bottom: 24px;
 }
 
 .section-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 30px;
-  margin-bottom: 35px;
-}
-
-.section-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #78350f;
+  font-weight: 600;
   display: block;
-  margin-bottom: 7px;
-  color: var(--accent);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
+  margin-bottom: 6px;
 }
 
 .section-header h2 {
-  color: var(--text);
-  font-size: 36px;
-  line-height: 1.1;
-  letter-spacing: -1px;
+  font-family: serif;
+  color: #1c1917;
+  font-weight: 600;
 }
 
-
-.products-grid {
+/* Layout em Grid (4 Colunas) */
+.categories-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
-.product-card {
+/* Responsividade para telas menores (Tablets e Celulares) */
+@media (max-width: 900px) {
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 550px) {
+  .categories-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Estilo do Card */
+.category-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f3ef; /* Cor do fundo claro da caixinha */
+  border-radius: 16px;
   overflow: hidden;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-large);
-  box-shadow: var(--shadow-small);
-  transition:
-    transform var(--transition),
-    box-shadow var(--transition),
-    border-color var(--transition);
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.product-card:hover {
-  transform: translateY(-5px);
-  border-color: #d1d5db;
-  box-shadow: var(--shadow-medium);
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
 }
 
-.product-image {
-  position: relative;
+/* Imagem do Card */
+.card-image {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 140px;
   overflow: hidden;
-  background: #f6f0e8;
 }
 
-.product-image img {
+.card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.35s ease;
+  transition: transform 0.5s ease;
 }
 
+/* Efeito de zoom leve na imagem ao passar o mouse */
+.category-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+/* Conteúdo do Card */
+.card-content {
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-content h3 {
+  font-family: serif;
+  font-size: 1.2rem;
+  color: #1c1917;
+  margin-bottom: 4px;
+}
+
+.card-content p {
+  font-size: 0.85rem;
+  color: #78716c;
+  margin-bottom: 12px;
+}
+
+/* Ícone de Seta com Font Awesome */
+.arrow-icon {
+  font-size: 0.85rem;
+  color: #44403c;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Efeito da seta deslizando um pouco para a direita no hover */
+.category-card:hover .arrow-icon {
+  transform: translateX(5px);
+  color: #78350f;
+}
+
+/* Container da Seção */
+.products-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Header */
+.products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+}
+
+.products-header .subtitle {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #8b5cf6; /* ou a cor do seu tema */
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.products-header h2 {
+  font-family: serif;
+  font-size: 2rem;
+  color: #1c1917;
+  font-weight: 600;
+}
+
+.view-all-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1c1917;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+}
+
+.view-all-link:hover {
+  opacity: 0.7;
+}
+
+/* Grid de Produtos (4 Colunas) */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 992px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card do Produto */
+.product-card {
+  background-color: #ffffff;
+  border: 1px solid #f0ece8;
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+/* Imagem e Botão do Coração */
+.product-image-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f7f3ef;
+}
+
+.product-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #78716c;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.1);
+  color: #dc2626;
+}
+
+.favorite-btn.active {
+  color: #dc2626;
+}
+
+/* Informações do Produto */
+.product-info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  flex-grow: 1;
+}
+
+/* Badges/Tags de Categoria */
+.badge {
+  align-self: flex-start;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  margin-bottom: 8px;
+}
+
+.badge-floral { background-color: #f5f3ff; color: #7c3aed; }
+.badge-citrico { background-color: #fefce8; color: #ca8a04; }
+.badge-amadeirado { background-color: #fff7ed; color: #c2410c; }
+.badge-ervas { background-color: #f0fdf4; color: #16a34a; }
+
+.product-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1c1917;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+/* Estrelas */
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.stars {
+  color: #9a3412; /* Cor castanha/dourada para as estrelas */
+  font-size: 0.75rem;
+  display: flex;
+  gap: 2px;
+}
+
+.rating-count {
+  font-size: 0.75rem;
+  color: #a8a29e;
+}
+
+.product-description {
+  font-size: 0.8rem;
+  color: #78716c;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+/* Preço */
+.product-price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  margin-bottom: 12px;
+}
+
+.old-price {
+  font-size: 0.85rem;
+  color: #a8a29e;
+  text-decoration: line-through;
+}
+
+.current-price {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1c1917;
+}
+
+/* Botão de Compra */
+.add-to-cart-btn {
+  width: 100%;
+  background-color: #8b3e23; /* Cor marrom do botão */
+  color: #ffffff;
+  border: none;
+  padding: 10px 0;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #6a2e19;
+}
+
+/* Container principal do Banner com cantos arredondados e margens */
+.banner-section {
+  max-width: 1200px;
+  margin: 40px auto;
+  height: 380px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-image: url('caminho/para/sua-imagem-sala.jpg'); /* Substitua pelo caminho da sua foto */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 60px;
+  box-sizing: border-box;
+}
+
+/* Camada de escurecimento gradual (Gradiente) da esquerda para a direita */
+.banner-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(28, 25, 23, 0.9) 0%, rgba(28, 25, 23, 0.5) 50%, transparent 100%);
+  z-index: 1;
+}
+
+/* Conteúdo de texto posicionado acima do gradiente */
+.banner-content {
+  position: relative;
+  z-index: 2;
+  max-width: 480px;
+  color: #ffffff;
+}
+
+/* Subtítulo superior */
+.banner-eyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #d6d3d1;
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 600;
+}
+
+/* Título principal em serifa */
+.banner-content h2 {
+  font-family: serif;
+  font-size: 2.25rem;
+  line-height: 1.2;
+  margin-bottom: 14px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* Parágrafo descritivo */
+.banner-content p {
+  font-size: 0.9rem;
+  color: #e7e5e4;
+  margin-bottom: 24px;
+  line-height: 1.4;
+}
+
+/* Botão de ação (mesmo padrão dos anteriores) */
+.banner-btn {
+  display: inline-block;
+  background-color: #8b3e23;
+  color: #ffffff;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.banner-btn:hover {
+  background-color: #6a2e19;
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+  .banner-section {
+    padding: 0 24px;
+    height: 420px;
+    margin: 20px 16px;
+  }
+  
+  /* No celular, escurecemos o banner inteiro para garantir que o texto fique legível sobre a imagem */
+  .banner-section::before {
+    background: rgba(28, 25, 23, 0.8);
+  }
+
+  .banner-content h2 {
+    font-size: 1.8rem;
+  }
+}
+
+/* Contentor da imagem precisa de position relative */
+.product-image-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f7f3ef;
+}
+
+.product-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Estilo da Etiqueta NOVO no canto superior esquerdo */
+.badge-novo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #5c3121; /* Tom acastanhado escuro da imagem */
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  z-index: 2;
+}
+
+/* Botão do Coração no canto superior direito (reaproveitado) */
+.favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #78716c;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.1);
+  color: #dc2626;
+}
+
+.favorite-btn.active {
+  color: #dc2626;
+}
+
+/* Container Geral da Seção */
+.benefits-section {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Caixa Principal com fundo creme e cantos arredondados */
+.benefits-container {
+  background-color: #f7f3ef;
+  border-radius: 16px;
+  padding: 30px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* Bloco do Título à Esquerda */
+.benefits-title-box {
+  min-width: 240px;
+  padding-right: 30px;
+  border-right: 1px solid #e7e2dc; /* Linha divisória vertical */
+}
+
+.benefits-subtitle {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #78350f; /* Tom marrom do tema */
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.benefits-title-box h2 {
+  font-family: serif;
+  font-size: 1.5rem;
+  color: #1c1917;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Lista de Benefícios (Lado Direito) */
+.benefits-list {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  gap: 20px;
+}
+
+/* Cada item individual de benefício */
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Ícones do Font Awesome */
+.benefit-icon {
+  font-size: 1.4rem;
+  color: #44403c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Textos do Benefício */
+.benefit-text h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1c1917;
+  margin-bottom: 2px;
+}
+
+.benefit-text p {
+  font-size: 0.75rem;
+  color: #78716c;
+  margin: 0;
+}
+
+/* Responsividade: Ajusta para coluna em telas menores (tablets e celulares) */
+@media (max-width: 1024px) {
+  .benefits-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+  }
+  
+  .benefits-title-box {
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid #e7e2dc;
+    padding-bottom: 20px;
+    width: 100%;
+  }
+
+  .benefits-list {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+}
+
+/* Contentor Principal da Secção */
+.testimonials-section {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+/* Título */
+.testimonials-title {
+  font-family: serif;
+  font-size: 2rem;
+  color: #1c1917;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+/* Grelha de 4 colunas */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Cartão Individual do Depoimento */
+.testimonial-card {
+  background-color: #ffffff;
+  border: 1px solid #f0ece8;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Estrelas */
+.testimonial-card .stars {
+  color: #9a3412; /* Tom acastanhado/dourado idêntico ao tema */
+  font-size: 0.8rem;
+  display: flex;
+  gap: 3px;
+  margin-bottom: 16px;
+}
+
+/* Texto do Comentário */
+.testimonial-text {
+  font-size: 0.9rem;
+  color: #44403c;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+/* Autor do Comentário */
+.testimonial-author {
+  font-size: 0.85rem;
+  color: #78716c;
+  font-weight: 500;
+}
+
+/* Responsividade para ecrãs menores (Tablets e Telemóveis) */
+@media (max-width: 1024px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Contentor principal do Banner */
+.cta-banner {
+  background-color: #2b211c; /* Tom castanho escuro elegante */
+  width: 100%;
+  padding: 40px 60px;
+  box-sizing: border-box;
+  margin: 50px 0;
+  position: relative;
+  overflow: hidden;
+  
+  /* Opcional: Se quiseres adicionar os desenhos de folhas nas laterais, 
+     podes colocar imagens PNG transparentes de folhas aqui: */
+  /* 
+  background-image: url('caminho/folhas-esquerda.png'), url('caminho/folhas-direita.png');
+  background-position: left bottom, right bottom;
+  background-repeat: no-repeat, no-repeat;
+  background-size: auto 80%;
+  */
+}
+
+/* Contentor interno para alinhar os elementos lado a lado */
+.cta-banner-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* Estilo do Título e Subtítulo */
+.cta-texts h2 {
+  font-family: serif;
+  font-size: 2.2rem;
+  color: #ffffff;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.cta-texts p {
+  font-size: 0.95rem;
+  color: #d6d3d1;
+  margin: 0;
+}
+
+/* Estilo do Botão (seguindo o mesmo padrão dos anteriores) */
+.cta-btn {
+  background-color: #8b3e23; /* Cor castanha/terrosa característica do site */
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.cta-btn:hover {
+  background-color: #6a2e19;
+}
+
+/* Responsividade para telemóveis e tablets */
+@media (max-width: 768px) {
+  .cta-banner {
+    padding: 30px 20px;
+  }
+  
+  .cta-banner-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cta-texts h2 {
+    font-size: 1.8rem;
+  }
+}
 /* =========================================================
    CARROSSEL DE IMAGENS
 ========================================================= */
@@ -546,63 +1338,6 @@
   font-size: 14px;
 }
 
-.footer {
-  margin-top: 20px;
-  color: #e8ddd2;
-  background: #2c241f;
-}
-
-.footer-container {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 50px;
-  padding-top: 60px;
-  padding-bottom: 50px;
-}
-
-.footer .logo {
-  margin-bottom: 12px;
-  color: #ffffff;
-}
-
-.footer-brand p {
-  color: #b8a99b;
-  font-size: 14px;
-}
-
-.footer-links {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.footer-links h3 {
-  margin-bottom: 5px;
-  color: #ffffff;
-  font-size: 14px;
-}
-
-.footer-links a {
-  width: fit-content;
-  color: #b8a99b;
-  font-size: 13px;
-  transition: color var(--transition);
-}
-
-.footer-links a:hover {
-  color: #ffffff;
-}
-
-.footer-bottom {
-  padding: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  text-align: center;
-}
-
-.footer-bottom p {
-  color: #6b7280;
-  font-size: 12px;
-}
 
 /* =========================================================
     TABLET
@@ -661,18 +1396,6 @@
     padding: 0;
   }
 
-  .hero {
-    min-height: 400px;
-  }
-
-  .hero-container {
-    min-height: 400px;
-  }
-
-  .hero h1 {
-    font-size: 42px;
-  }
-
   .section-header {
     align-items: stretch;
     flex-direction: column;
@@ -708,29 +1431,6 @@
 
   .nav-link {
     font-size: 13px;
-  }
-
-  .hero {
-    min-height: 370px;
-  }
-
-  .hero-container {
-    min-height: 370px;
-  }
-
-  .hero h1 {
-    margin-bottom: 15px;
-    font-size: 36px;
-    letter-spacing: -1.5px;
-  }
-
-  .hero p {
-    margin-bottom: 24px;
-    font-size: 15px;
-  }
-
-  .hero-button {
-    width: 100%;
   }
 
   .products-section {
@@ -771,13 +1471,8 @@
     width: calc(100% - 18px);
   }
 
-  .section-container,
-  .hero-container {
+  .section-container {
     width: calc(100% - 18px);
-  }
-
-  .hero h1 {
-    font-size: 32px;
   }
 
   .product-footer {
