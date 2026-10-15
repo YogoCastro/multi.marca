@@ -17,28 +17,29 @@
 }
 
 .header-brand {
-    text-align: center;
+  text-align: center;
 }
 
 .brand-title {
-    font-family: "Times New Roman", Times, serif; /* Tipo de letra serifado */
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #4a3b32; /* Castanho escuro */
-    letter-spacing: normal; /* Espaçamento entre as letras */
-    margin: 0;
-    text-transform: uppercase;
+  font-family: "Times New Roman", Times, serif; /* Tipo de letra serifado */
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #4a3b32; /* Castanho escuro */
+  letter-spacing: normal; /* Espaçamento entre as letras */
+  margin: 0;
+  text-transform: uppercase;
 }
 
 .brand-subtitle {
-    font-family: Arial, sans-serif; /* Tipo de letra sem serifa para o subtítulo */
-    font-size: 0.5rem;
-    color: #7a6b60; /* Castanho mais suave */
-    letter-spacing: 1px;
-    text-transform: lowercase;
+  font-family:
+    Arial, sans-serif; /* Tipo de letra sem serifa para o subtítulo */
+  font-size: 0.5rem;
+  color: #7a6b60; /* Castanho mais suave */
+  letter-spacing: 1px;
+  text-transform: lowercase;
 }
 
-.logo img{
+.logo img {
   display: inline-flex;
   align-items: center;
   width: 4rem;
@@ -84,42 +85,42 @@
 }
 
 .products-filter {
-    position: relative;
-    width: 280px;
+  position: relative;
+  width: 280px;
 }
 
 .search-icon {
-    position: absolute;
-    top: 50%;
-    right: 14px;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: translateY(-50%);
-    color: var(--text-secondary);
-    font-size: 14px;
-    pointer-events: none;
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  font-size: 14px;
+  pointer-events: none;
 }
 
 .products-filter input {
-    width: 100%;
-    height: 42px;
-    padding: 0 42px 0 14px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-small);
-    background: var(--surface);
-    color: var(--text);
-    outline: none;
+  width: 100%;
+  height: 42px;
+  padding: 0 42px 0 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-small);
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
 }
 
 .products-filter input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(181, 106, 42, 0.12);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(181, 106, 42, 0.12);
 }
 
 .products-filter input::placeholder {
-    color: var(--text-light);
+  color: var(--text-light);
 }
 
 .login-button,
@@ -212,7 +213,7 @@
   position: relative;
   width: 100%;
   height: 500px;
-  background-image: url('caminho/para/sua-foto-banner.jpg');
+  background-image: url("caminho/para/sua-foto-banner.jpg");
   background-size: cover;
   background-position: center;
   overflow: hidden;
@@ -223,13 +224,18 @@
 }
 
 .hero-carousel::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, #f7f3ef 40%, rgba(247, 243, 239, 0.7) 65%, transparent 100%);
+  background: linear-gradient(
+    90deg,
+    #f7f3ef 40%,
+    rgba(247, 243, 239, 0.7) 65%,
+    transparent 100%
+  );
   z-index: 1;
 }
 
@@ -248,7 +254,9 @@
   height: 100%;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
+  transition:
+    opacity 0.6s ease-in-out,
+    visibility 0.6s ease-in-out;
   display: flex;
   align-items: center;
   padding: 0 60px;
@@ -316,7 +324,7 @@
 }
 
 .hero-floating-text {
-  font-family: 'Brush Script MT', cursive, serif;
+  font-family: "Brush Script MT", cursive, serif;
   font-style: italic;
   font-size: 1.4rem;
   color: #ffffff;
@@ -430,7 +438,9 @@
   border-radius: 16px;
   overflow: hidden;
   text-decoration: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .category-card:hover {
@@ -483,7 +493,9 @@
 .arrow-icon {
   font-size: 0.85rem;
   color: #44403c;
-  transition: transform 0.3s ease, color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Efeito da seta deslizando um pouco para a direita no hover */
@@ -570,6 +582,15 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
+.product-image {
+  width: 100%;
+  height: 220px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: #f7f3ef;
+}
+
 /* Imagem e Botão do Coração */
 .product-image-container {
   position: relative;
@@ -632,10 +653,22 @@
   margin-bottom: 8px;
 }
 
-.badge-floral { background-color: #f5f3ff; color: #7c3aed; }
-.badge-citrico { background-color: #fefce8; color: #ca8a04; }
-.badge-amadeirado { background-color: #fff7ed; color: #c2410c; }
-.badge-ervas { background-color: #f0fdf4; color: #16a34a; }
+.badge-floral {
+  background-color: #f5f3ff;
+  color: #7c3aed;
+}
+.badge-citrico {
+  background-color: #fefce8;
+  color: #ca8a04;
+}
+.badge-amadeirado {
+  background-color: #fff7ed;
+  color: #c2410c;
+}
+.badge-ervas {
+  background-color: #f0fdf4;
+  color: #16a34a;
+}
 
 .product-title {
   font-size: 0.95rem;
@@ -718,7 +751,7 @@
   height: 380px;
   border-radius: 20px;
   overflow: hidden;
-  background-image: url('caminho/para/sua-imagem-sala.jpg'); /* Substitua pelo caminho da sua foto */
+  background-image: url("caminho/para/sua-imagem-sala.jpg"); /* Substitua pelo caminho da sua foto */
   background-size: cover;
   background-position: center;
   position: relative;
@@ -730,13 +763,18 @@
 
 /* Camada de escurecimento gradual (Gradiente) da esquerda para a direita */
 .banner-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, rgba(28, 25, 23, 0.9) 0%, rgba(28, 25, 23, 0.5) 50%, transparent 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(28, 25, 23, 0.9) 0%,
+    rgba(28, 25, 23, 0.5) 50%,
+    transparent 100%
+  );
   z-index: 1;
 }
 
@@ -801,7 +839,7 @@
     height: 420px;
     margin: 20px 16px;
   }
-  
+
   /* No celular, escurecemos o banner inteiro para garantir que o texto fique legível sobre a imagem */
   .banner-section::before {
     background: rgba(28, 25, 23, 0.8);
@@ -960,7 +998,7 @@
     align-items: flex-start;
     padding: 24px;
   }
-  
+
   .benefits-title-box {
     border-right: none;
     padding-right: 0;
@@ -1063,7 +1101,7 @@
   margin: 50px 0;
   position: relative;
   overflow: hidden;
-  
+
   /* Opcional: Se quiseres adicionar os desenhos de folhas nas laterais, 
      podes colocar imagens PNG transparentes de folhas aqui: */
   /* 
@@ -1121,7 +1159,7 @@
   .cta-banner {
     padding: 30px 20px;
   }
-  
+
   .cta-banner-content {
     flex-direction: column;
     text-align: center;
@@ -1338,7 +1376,6 @@
   font-size: 14px;
 }
 
-
 /* =========================================================
     TABLET
 ========================================================= */
@@ -1447,7 +1484,10 @@
   }
 
   .product-image {
-    aspect-ratio: 1.15 / 1;
+    width: 100%;
+    height: 220px;
+    aspect-ratio: auto;
+    overflow: hidden;
   }
 
   .product-info {

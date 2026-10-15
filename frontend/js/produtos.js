@@ -16,6 +16,8 @@ async function loadProducts() {
 
     const data = await response.json();
 
+    console.log("Resposta da API:", data);
+
     if (!response.ok) {
       console.error("Erro ao buscar produtos:", data.message);
 
@@ -68,6 +70,11 @@ function renderProducts(productsToRender) {
     productsContainer.appendChild(card);
   });
 
+  console.log(
+    "Quantidade de cards na loja:",
+    productsContainer.children.length,
+  );
+
   displayedProducts = [...productsToRender];
 }
 
@@ -113,7 +120,7 @@ function createProductCard(product) {
                     class="product-carousel-image ${
                       index === 0 ? "active" : ""
                     }"
-                    src="${API_URL.replace("/api", "")}${escapeHTML(item.image)}"
+                    src="${API_URL.replace(/\/api\/?$/, "")}${escapeHTML(item.image)}"
                     alt="${escapeHTML(product.name)}"
                     data-image-index="${index}"
                   >
@@ -451,6 +458,8 @@ function setProducts(newProducts) {
   products.length = 0;
 
   products.push(...newProducts);
+
+  console.log("Produtos recebidos para renderizar:", products);
 
   renderProducts(products);
 }

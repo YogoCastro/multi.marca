@@ -165,6 +165,12 @@ async function setupProductForm() {
 
       document.getElementById("product-description").value =
         product.description || "";
+
+      document
+        .querySelectorAll('input[name="sections"]')
+        .forEach((checkbox) => {
+          checkbox.checked = (product.sections || []).includes(checkbox.value);
+        });
     } catch (error) {
       console.error("Erro ao carregar produto:", error);
       alert(error.message);
@@ -200,6 +206,14 @@ async function setupProductForm() {
       "description",
       document.getElementById("product-description").value.trim(),
     );
+
+    const selectedSections = document.querySelectorAll(
+      'input[name="sections"]:checked',
+    );
+
+    for (const section of selectedSections) {
+      formData.append("sections", section.value);
+    }
 
     for (const file of imageInput.files) {
       formData.append("image", file);

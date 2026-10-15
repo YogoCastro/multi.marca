@@ -2,13 +2,15 @@ const productService = require("../services/productService");
 
 const createProduct = async (req, res) => {
   try {
-    const { name, description, price, stock } = req.body;
+    const { name, description, price, stock, sections } = req.body;
+
+    const productSections = sections ? [].concat(sections) : [];
 
     console.log("ARQUIVOS RECEBIDOS:", req.files);
 
     const image = req.files?.length
       ? `/uploads/products/${req.files[0].filename}`
-      : null;
+      : undefined;
 
     if (!name || price === undefined || stock === undefined) {
       return res.status(400).json({
@@ -27,6 +29,7 @@ const createProduct = async (req, res) => {
       stock,
       image,
       images,
+      sections: productSections,
     });
 
     res.status(201).json({
@@ -86,7 +89,9 @@ const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const { name, description, price, stock } = req.body;
+    const { name, description, price, stock, sections } = req.body;
+
+    const productSections = sections ? [].concat(sections) : [];
 
     const image = req.file.length
       ? `/uploads/products/${req.file.filename}`
@@ -104,6 +109,7 @@ const updateProduct = async (req, res) => {
       price,
       stock,
       image,
+      sections: productSections,
     });
 
     if (!product) {
