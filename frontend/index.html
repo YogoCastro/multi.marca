@@ -25,8 +25,8 @@
 
         <!-- 2. Navegação Central -->
         <nav class="header-nav">
-          <a href="#" class="nav-link">Início</a>
-          <a href="#" class="nav-link active">Produtos</a>
+          <a href="#" class="nav-link active">Início</a>
+          <a href="/frontend/produtos.html" class="nav-link">Produtos</a>
           <!-- Active cria a linha embaixo -->
           <a href="#" class="nav-link">Sobre</a>
           <a href="#" class="nav-link">Contato</a>
@@ -58,63 +58,6 @@
         </div>
       </div>
     </header>
-    <!-- <header class="header">
-      <div class="header-container">
-        <div class="logo">
-          <img src="/frontend/assets/logomulticheiros.png" alt="Multicheiros" >
-        </div>
-        <div class="header-brand">
-          <h1 href="index.html" class="brand-title"> MULTICHEIROS </a>
-          <p class="brand-subtitle">essências • ambientes • experiências</p>
-        </div>
-        <nav class="navigation">
-          <a href="index.html" class="nav-link active"> Início </a>
-          <a href="#produtos" class="nav-link"> Produtos </a>
-          <a href="#Sobre" class="nav-link">Sobre</a>
-          <a href="#Contato" class="nav-link">Contato</a>
-        </nav>
-        <div class="products-filter">
-            <span class="search-icon">
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </span>
-            <input
-              type="search"
-              id="product-search"
-              placeholder="Buscar produto..."
-              autocomplete="off"
-            />
-        </div>
-        <div class="header-actions">
-          <span class="">
-            <i class="fa-regular fa-user"></i>
-          </span>
-          <a
-            href="pedidos.html"
-            class="login-button"
-            id="orders-link"
-            style="display: none"
-          >
-            Meus pedidos
-          </a>
-          <button
-            type="button"
-            class="login-button"
-            id="logout-button"
-            style="display: none"
-          >
-            Sair
-          </button>
-          <a
-            href="carrinho.html"
-            class="cart-button"
-            aria-label="Abrir carrinho"
-          > 
-            <span class="cart-icon">🛒</span>
-            <span class="cart-count" id="cart-count"> 0 </span>
-          </a>
-        </div>
-      </div>
-    </header> -->
     <main>
       <section class="hero-carousel">
         <div class="hero-track">
@@ -585,102 +528,6 @@
           <a href="#" class="cta-btn">Explorar produtos &rarr;</a>
         </div>
       </section>
-      <!-- <section class="products-section" id="produtos">
-        <div class="section-container">
-          <div class="section-header">
-            <div>
-              <span class="section-label"> NOSSA LOJA </span>
-              <h2>Produtos</h2>
-            </div>
-          </div>
-          <div class="products-grid" id="products-container">
-            <article class="product-card" data-product-id="1">
-                <div class="product-image">
-                  <img src="" />
-                </div>
-                <div class="product-info">
-                  <span class="product-category">FLORAL • 250ML</span>
-                  <h3 class="product-name">Produto exemplo 1</h3>
-                  <div class="product-rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="rating-count">(18)</span>
-                  </div>
-                  <p class="product-description">Aroma relaxante e harmonioso para ambientes tranquilos. Toque de lavanda e baunilha.</p>
-                  <div class="product-footer">
-                    <div class="price-box">
-                      <span class="price-old">R$ 69,90</span>
-                      <span class="product-price">R$ 59,90</span>
-                    </div>
-                  </div>
-                </div>
-              </article>
-              <article class="product-card" data-product-id="2">
-                  <div class="product-image">
-                    <img src="" alt="Produto Exemplo 2" class="product-image" />
-                  </div>
-                  <div class="product-info">
-                    <span class="product-category">CÍTRICO • 200ML</span>
-                    <h3 class="product-name">Produto exemplo 2</h3>
-                    <div class="product-rating">
-                      <span class="stars">★★★★★</span>
-                      <span class="rating-count">(24)</span>
-                    </div>
-                    <p class="product-description">Frescor imediato com notas revigorantes e marcantes. Notas de capim limão.</p>
-                    <div class="product-footer">
-                      <div class="price-box">
-                        <span class="price-old">R$ 99,90</span>
-                        <span class="product-price">R$ 89,90</span>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-                <article class="product-card" data-product-id="3">
-                  <div class="product-image">
-                    <img src="" alt="Produto Exemplo 3" class="product-image" />
-                  </div>
-                  <div class="product-info">
-                    <span class="product-category">AMADEIRADO • 300ML</span>
-                    <h3 class="product-name">Produto exemplo 3</h3>
-                    <div class="product-rating">
-                      <span class="stars">★★★★☆</span>
-                      <span class="rating-count">(9)</span>
-                    </div>
-                    <p class="product-description">Toque adocicado e elegante para salas e escritórios. Notas de baunilha e âmbar.</p>
-                    <div class="product-footer">
-                      <div class="price-box">
-                        <span class="product-price">R$ 129,90</span>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-                <article class="product-card" data-product-id="4">
-                  <div class="product-image">
-                    <img src="" alt="Produto Exemplo 4" class="product-image" />
-                  </div>
-                  <div class="product-info">
-                    <span class="product-category">ERVAS • 150ML</span>
-                    <h3 class="product-name">Produto exemplo 4</h3>
-                    <div class="product-rating">
-                      <span class="stars">★★★★★</span>
-                      <span class="rating-count">(31)</span>
-                    </div>
-                    <p class="product-description">Limpeza suave com fragrância natural e refrescante. Notas de alecrim e hortelã.</p>
-                    <div class="product-footer">
-                      <div class="price-box">
-                        <span class="price-old">R$ 49,90</span>
-                        <span class="product-price">R$ 39,90</span>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-                <div class="carousel-dots" id="carousel-dots"></div>
-          </div>
-          <div class="empty-products" id="empty-products" hidden>
-            <h3>Nenhum produto encontrado</h3>
-            <p>Não encontramos produtos para sua busca.</p>
-          </div>
-        </div>
-      </section> -->
     </main>
     <footer class="site-footer">
       <div class="footer-container">
@@ -757,18 +604,6 @@
       </div>
     </footer>
 
-    <!-- =====================================================
-        JAVASCRIPT
-        
-        Por enquanto o arquivo pode estar vazio.
-        Depois ele será responsável por:
-        
-        - buscar produtos da API
-        - renderizar produtos
-        - adicionar produtos ao carrinho
-        - atualizar contador do carrinho
-        - pesquisar produtos
-    ====================================================== -->
     <script src="js/api.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/carrinho.js"></script>

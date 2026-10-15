@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multicheiros | Categorias</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/produtos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <!-- 1. Logótipo e Slogan -->
+            <a href="#" class="header-logo">
+                <i class="fa-solid fa-spa logo-icon"></i>
+                <div class="logo-text">
+                    <h1>MULTICHEIROS</h1>
+                    <span>essências • ambientes • experiências</span>
+                </div>
+            </a>
+            <!-- 2. Navegação Central -->
+            <nav class="header-nav">
+                <a href="/frontend/index.html" class="nav-link">Início</a>
+                <a href="/frontend/produtos.html" class="nav-link active">Produtos</a>
+                <a href="#" class="nav-link">Sobre</a>
+                <a href="#" class="nav-link">Contato</a>
+            </nav>
+            <!-- 3. Ações à Direita (Busca, Conta, Carrinho) -->
+            <div class="header-actions">
+                <!-- Caixa de Pesquisa -->
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Buscar produtos..." />
+                </div>
+                <!-- Ícone de Perfil/Conta -->
+                <a href="#" class="action-icon" aria-label="Minha conta">
+                    <i class="fa-regular fa-user"></i>
+                </a>
+                <!-- Ícone do Carrinho com o Número (Badge) -->
+                <a href="#" class="action-icon cart-icon-wrapper" aria-label="Carrinho de compras">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-badge">2</span>
+                    <!-- Número de itens no carrinho -->
+                </a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <!-- BANNER -->
+        <section class="page-header-banner">
+            <div class="banner-content">
+                <nav class="breadcrumb" aria-label="Você está em">
+                    <a href="index.html">Início</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <a href="produtos.html">Produtos</a>
+                </nav>
+                <h1>Produtos</h1>
+                <p>
+                    Explore nossos produtos e encontre a fragrância
+                    ideal para cada momento do seu dia.
+                </p>
+                <div class="banner-divider">
+                    <i class="fa-solid fa-spa"></i>
+                    <span></span>
+                </div>
+            </div>
+        </section>
+        <!-- CATÁLOGO: FILTROS + PRODUTOS -->
+        <section class="catalog-page">
+            <!-- BARRA LATERAL -->
+            <aside class="sidebar-filters">
+                <div class="filter-group">
+                    <h3>Categorias</h3>
+                    <ul class="filter-list">
+                        <li>
+                            <a href="#">
+                                <i class="fa-solid fa-border-all"></i>
+                                <span>Todos os produtos</span>
+                                <span class="count">(24)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="active">
+                                <i class="fa-solid fa-spa"></i>
+                                <span>Floral</span>
+                                <span class="count">(6)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa-solid fa-lemon"></i>
+                                <span>Cítrico</span>
+                                <span class="count">(6)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa-solid fa-tree"></i>
+                                <span>Amadeirado</span>
+                                <span class="count">(6)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa-solid fa-leaf"></i>
+                                <span>Ervas</span>
+                                <span class="count">(6)</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="filter-group">
+                    <h3>Faixa de preço</h3>
+                    <label class="checkbox-label">
+                        <input type="checkbox">
+                        <span>Até R$ 50,00</span>
+                        <span class="count">(4)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox">
+                        <span>R$ 50,00 – R$ 100,00</span>
+                        <span class="count">(10)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox">
+                        <span>R$ 100,00 – R$ 150,00</span>
+                        <span class="count">(7)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox">
+                        <span>Acima de R$ 150,00</span>
+                        <span class="count">(3)</span>
+                    </label>
+                </div>
+                <div class="filter-group">
+                    <h3>Volume</h3>
+                    <label class="checkbox-label">
+                        <input type="radio" name="volume" checked>
+                        <span>Todos</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="radio" name="volume">
+                        <span>100ml</span>
+                        <span class="count">(4)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="radio" name="volume">
+                        <span>150ml</span>
+                        <span class="count">(6)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="radio" name="volume">
+                        <span>200ml</span>
+                        <span class="count">(5)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="radio" name="volume">
+                        <span>250ml</span>
+                        <span class="count">(5)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="radio" name="volume">
+                        <span>300ml</span>
+                        <span class="count">(4)</span>
+                    </label>
+                </div>
+                <div class="filter-group">
+                    <h3>Avaliação</h3>
+                    <label class="checkbox-label rating-option">
+                        <input type="checkbox">
+                        <span class="stars">★★★★★</span>
+                        <span class="count">(18)</span>
+                    </label>
+                    <label class="checkbox-label rating-option">
+                        <input type="checkbox">
+                        <span class="stars">★★★★<span class="empty-star">★</span></span>
+                        <span class="count">(4)</span>
+                    </label>
+                    <label class="checkbox-label rating-option">
+                        <input type="checkbox">
+                        <span class="stars">★★★<span class="empty-star">★★</span></span>
+                        <span class="count">(2)</span>
+                    </label>
+                    <label class="checkbox-label rating-option">
+                        <input type="checkbox">
+                        <span class="stars">★★<span class="empty-star">★★★</span></span>
+                        <span class="count">(0)</span>
+                    </label>
+                    <label class="checkbox-label rating-option">
+                        <input type="checkbox">
+                        <span class="stars">★<span class="empty-star">★★★★</span></span>
+                        <span class="count">(0)</span>
+                    </label>
+                </div>
+                <button type="button" class="clear-filters-btn">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    Limpar filtros
+                </button>
+            </aside>
+            <!-- ÁREA PRINCIPAL DOS PRODUTOS -->
+            <div class="catalog-content">
+                <div class="category-header">
+                    <div class="category-info">
+                        <div class="category-title-wrapper">
+                            <div class="category-icon-box">
+                                <i class="fa-solid fa-spa"></i>
+                            </div>
+                            <h2>Categoria: Floral</h2>
+                        </div>
+                        <p>
+                            Produtos com fragrâncias suaves, marcantes e envolventes.
+                        </p>
+                    </div>
+                    <div class="category-sorting">
+                        <label for="sort-select">Ordenar por:</label>
+                        <select id="sort-select" class="sort-dropdown">
+                            <option value="mais-vendidos">Mais vendidos</option>
+                            <option value="menor-preco">Menor preço</option>
+                            <option value="maior-preco">Maior preço</option>
+                            <option value="lancamentos">Lançamentos</option>
+                            <option value="promocao">Promoção</option>
+                            <option value="novo">Novo</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- GRADE DE PRODUTOS -->
+                <div class="products-grid-3x3">
+                    <!-- PRODUTO 1 -->
+                    <article class="product-card">
+                        <div class="product-image-container">
+                            <span class="product-badge badge-best">Mais vendido</span>
+                            <img src="assets/img/difusor-floral.jpg" alt="Difusor de ambiente floral">
+                            <button class="favorite-btn" aria-label="Favoritar produto">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-spec">FLORAL • 250ML</span>
+                            <h3 class="product-title">Difusor de Ambiente Floral</h3>
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-count">(18)</span>
+                            </div>
+                            <p class="product-description">
+                                Aroma relaxante e harmonioso para ambientes tranquilos.
+                                Toque de lavanda e baunilha.
+                            </p>
+                            <div class="product-price">
+                                <span class="old-price">R$ 69,90</span>
+                                <span class="current-price">R$ 59,90</span>
+                            </div>
+                            <button class="add-to-cart-btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Adicionar ao carrinho
+                            </button>
+                        </div>
+                    </article>
+                    <!-- PRODUTO 2 -->
+                    <article class="product-card">
+                        <div class="product-image-container">
+                            <span class="product-badge badge-launch">Lançamento</span>
+                            <img src="assets/img/vela-floral.jpg" alt="Vela aromática floral">
+                            <button class="favorite-btn" aria-label="Favoritar produto">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-spec">FLORAL • 200ML</span>
+                            <h3 class="product-title">Vela Aromática Floral</h3>
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-count">(12)</span>
+                            </div>
+                            <p class="product-description">
+                                Fragrância delicada e envolvente com notas de jasmim
+                                e flor de laranjeira.
+                            </p>
+                            <div class="product-price">
+                                <span class="current-price">R$ 54,90</span>
+                            </div>
+                            <button class="add-to-cart-btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Adicionar ao carrinho
+                            </button>
+                        </div>
+                    </article>
+                    <!-- PRODUTO 3 -->
+                    <article class="product-card">
+                        <div class="product-image-container">
+                            <img src="assets/img/spray-lavanda.jpg" alt="Spray de ambiente lavanda">
+                            <button class="favorite-btn" aria-label="Favoritar produto">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-spec">FLORAL • 150ML</span>
+                            <h3 class="product-title">Spray de Ambiente Lavanda</h3>
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-count">(31)</span>
+                            </div>
+                            <p class="product-description">
+                                Perfuma e traz sensação de bem-estar para todos
+                                os ambientes.
+                            </p>
+                            <div class="product-price">
+                                <span class="current-price">R$ 39,90</span>
+                            </div>
+                            <button class="add-to-cart-btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Adicionar ao carrinho
+                            </button>
+                        </div>
+                    </article>
+                    <!-- PRODUTO 4 -->
+                    <article class="product-card">
+                        <div class="product-image-container">
+                            <img src="assets/img/difusor-jasmim.jpg" alt="Difusor de ambiente jasmim">
+                            <button class="favorite-btn" aria-label="Favoritar produto">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-spec">FLORAL • 250ML</span>
+                            <h3 class="product-title">Difusor de Ambiente Jasmim</h3>
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-count">(8)</span>
+                            </div>
+                            <p class="product-description">
+                                Fragrância suave e sofisticada, ideal para quartos
+                                e salas.
+                            </p>
+                            <div class="product-price">
+                                <span class="current-price">R$ 64,90</span>
+                            </div>
+                            <button class="add-to-cart-btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Adicionar ao carrinho
+                            </button>
+                        </div>
+                    </article>
+                    <!-- PRODUTO 5 -->
+                    <article class="product-card">
+                        <div class="product-image-container">
+                            <span class="product-badge badge-promo">Promoção</span>
+                            <img src="assets/img/vela-lavanda.jpg" alt="Vela aromática lavanda">
+                            <button class="favorite-btn" aria-label="Favoritar produto">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-spec">FLORAL • 200ML</span>
+                            <h3 class="product-title">Vela Aromática Lavanda</h3>
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-count">(15)</span>
+                            </div>
+                            <p class="product-description">
+                                Relaxamento e tranquilidade com notas de lavanda
+                                e camomila.
+                            </p>
+                            <div class="product-price">
+                                <span class="old-price">R$ 69,90</span>
+                                <span class="current-price">R$ 49,90</span>
+                            </div>
+                            <button class="add-to-cart-btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Adicionar ao carrinho
+                            </button>
+                        </div>
+                    </article>
+                    <!-- PRODUTO 6 -->
+                    <article class="product-card">
+                        <div class="product-image-container">
+                            <img src="assets/img/difusor-rosa-branca.jpg" alt="Difusor de ambiente rosa branca">
+                            <button class="favorite-btn" aria-label="Favoritar produto">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-spec">FLORAL • 300ML</span>
+                            <h3 class="product-title">Difusor de Ambiente Rosa Branca</h3>
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-count">(7)</span>
+                            </div>
+                            <p class="product-description">
+                                Uma fragrância delicada e elegante para o seu ambiente.
+                            </p>
+                            <div class="product-price">
+                                <span class="current-price">R$ 129,90</span>
+                            </div>
+                            <button class="add-to-cart-btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Adicionar ao carrinho
+                            </button>
+                        </div>
+                    </article>
+                    <!-- PRODUTO 7 -->
+                    <article class="product-card">
+                        <div class="product-image-container">
+                            <img src="assets/img/vela-peonia.jpg" alt="Vela aromática peônia">
+                            <button class="favorite-btn" aria-label="Favoritar produto">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-spec">FLORAL • 150ML</span>
+                            <h3 class="product-title">Vela Aromática Peônia</h3>
+
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-count">(6)</span>
+                            </div>
+
+                            <p class="product-description">
+                                Notas florais que transformam o ambiente em um
+                                refúgio de paz.
+                            </p>
+
+                            <div class="product-price">
+                                <span class="current-price">R$ 44,90</span>
+                            </div>
+
+                            <button class="add-to-cart-btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Adicionar ao carrinho
+                            </button>
+                        </div>
+                    </article>
+
+
+                    <!-- PRODUTO 8 -->
+                    <article class="product-card">
+                        <div class="product-image-container">
+                            <span class="product-badge badge-best">Mais vendido</span>
+
+                            <img src="assets/img/spray-cerejeira.jpg" alt="Spray de ambiente flor de cerejeira">
+
+                            <button class="favorite-btn" aria-label="Favoritar produto">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+
+                        <div class="product-info">
+                            <span class="product-spec">FLORAL • 250ML</span>
+                            <h3 class="product-title">Spray de Ambiente Flor de Cerejeira</h3>
+
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-count">(19)</span>
+                            </div>
+
+                            <p class="product-description">
+                                Fragrância fresca e envolvente com notas de cerejeira.
+                            </p>
+
+                            <div class="product-price">
+                                <span class="current-price">R$ 59,90</span>
+                            </div>
+
+                            <button class="add-to-cart-btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Adicionar ao carrinho
+                            </button>
+                        </div>
+                    </article>
+
+
+                    <!-- PRODUTO 9 -->
+                    <article class="product-card">
+                        <div class="product-image-container">
+                            <img src="assets/img/difusor-lirio.jpg" alt="Difusor de ambiente lírio">
+
+                            <button class="favorite-btn" aria-label="Favoritar produto">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+
+                        <div class="product-info">
+                            <span class="product-spec">FLORAL • 100ML</span>
+                            <h3 class="product-title">Difusor de Ambiente Lírio</h3>
+
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-count">(11)</span>
+                            </div>
+
+                            <p class="product-description">
+                                Elegância e sofisticação em uma fragrância única.
+                            </p>
+
+                            <div class="product-price">
+                                <span class="current-price">R$ 89,90</span>
+                            </div>
+
+                            <button class="add-to-cart-btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Adicionar ao carrinho
+                            </button>
+                        </div>
+                    </article>
+
+                </div>
+
+
+                <!-- PAGINAÇÃO -->
+                <nav class="pagination" aria-label="Paginação de produtos">
+                    <a href="#" class="page-arrow" aria-label="Página anterior">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+
+                    <a href="#" class="page-number active" aria-current="page">1</a>
+                    <a href="#" class="page-number">2</a>
+                    <a href="#" class="page-number">3</a>
+                    <a href="#" class="page-number">4</a>
+                    <a href="#" class="page-number">5</a>
+
+                    <a href="#" class="page-arrow" aria-label="Próxima página">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                </nav>
+
+            </div>
+        </section>
+
+
+        <!-- BENEFÍCIOS -->
+        <section class="benefits-bar">
+
+            <div class="benefit-item">
+                <span class="benefit-icon">
+                    <i class="fa-solid fa-truck"></i>
+                </span>
+                <div>
+                    <h3>Entrega rápida</h3>
+                    <p>Para todo o Brasil</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <span class="benefit-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </span>
+                <div>
+                    <h3>Compra segura</h3>
+                    <p>Seus dados protegidos</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <span class="benefit-icon">
+                    <i class="fa-regular fa-credit-card"></i>
+                </span>
+                <div>
+                    <h3>Pagamento facilitado</h3>
+                    <p>Diversas formas de pagamento</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <span class="benefit-icon">
+                    <i class="fa-solid fa-headset"></i>
+                </span>
+                <div>
+                    <h3>Atendimento especializado</h3>
+                    <p>Estamos aqui para ajudar</p>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- Coluna 1: Logótipo e Slogan -->
+            <div class="footer-col brand-col">
+                <div class="footer-logo">
+                    <i class="fa-solid fa-spa"></i>
+                    <div class="brand-text">
+                    <h3>MULTICHEIROS</h3>
+                    <span>essências • ambientes • experiências</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna 2: Loja -->
+            <div class="footer-col">
+                <h4>Loja</h4>
+                <ul>
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#">Produtos</a></li>
+                    <li><a href="#">Carrinho</a></li>
+                </ul>
+            </div>
+
+            <!-- Coluna 3: Conta -->
+            <div class="footer-col">
+                <h4>Conta</h4>
+                <ul>
+                    <li><a href="#">Entrar</a></li>
+                    <li><a href="#">Criar conta</a></li>
+                    <li><a href="#">Meus pedidos</a></li>
+                </ul>
+            </div>
+
+            <!-- Coluna 4: Newsletter -->
+            <div class="footer-col newsletter-col">
+                <h4>Newsletter</h4>
+                <p>Receba novidades e ofertas exclusivas.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Seu e-mail" required />
+                    <button type="submit" aria-label="Submeter newsletter">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+            </form>
+            </div>
+
+            <!-- Coluna 5: Redes Sociais -->
+            <div class="footer-col social-col">
+                <h4>Siga-nos</h4>
+                <div class="social-icons">
+                    <a href="#" aria-label="Instagram"
+                    ><i class="fa-brands fa-instagram"></i
+                    ></a>
+                    <a href="#" aria-label="Facebook"
+                    ><i class="fa-brands fa-facebook-f"></i
+                    ></a>
+                    <a href="#" aria-label="YouTube"
+                    ><i class="fa-brands fa-youtube"></i
+                    ></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Linha Divisória -->
+        <hr class="footer-divider" />
+
+        <!-- Rodapé Inferior -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 Multicheiros. Todos os direitos reservados.</p>
+            <div class="footer-bottom-right">
+                <span>Ambientes melhores. Momentos únicos.</span>
+                <i class="fa-solid fa-leaf"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/carrinho.js"></script>
+    <script src="js/produtos.js"></script>
+    <script src="js/home.js"></script>
+
+</body>
+
+</html>
