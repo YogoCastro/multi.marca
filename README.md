@@ -115,3 +115,32 @@ npm run dev
 ```
 
 O servidor será iniciado conforme a configuração do projeto.
+
+
+## API — Rotas disponíveis
+
+A API do Multicheiros permite gerenciar usuários e produtos.
+
+### Produtos
+
+| Método | Endpoint | Acesso |
+|---|---|---|
+| GET | `/api/products` | Público |
+| GET | `/api/products/:id` | Público |
+| POST | `/api/products` | ADMIN |
+| PUT | `/api/products/:id` | ADMIN |
+| DELETE | `/api/products/:id` | ADMIN |
+
+As operações de criação e atualização aceitam upload de até 10 imagens usando o campo `image` em requisições multipart/form-data.
+
+### Autenticação
+
+| Método | Endpoint | Acesso |
+|---|---|---|
+| POST | `/api/auth/register` | Público |
+| POST | `/api/auth/login` | Público |
+| GET | `/api/auth/me` | Usuário autenticado |
+| GET | `/api/auth/admin-test` | ADMIN |
+
+As rotas protegidas exigem autenticação. As rotas administrativas também verificam a permissão do usuário.
+
