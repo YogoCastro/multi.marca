@@ -27,3 +27,23 @@ O Multicheiros é uma aplicação de comércio eletrônico que está sendo desen
 - Visual Studio Code
 - Thunder Client
 
+
+## Funcionalidades
+
+### Clientes
+- Cadastro e autenticação de usuários
+- Visualização dos produtos disponíveis
+- Adição de produtos ao carrinho
+- Consulta dos itens e valores do carrinho
+
+### Administração
+- Cadastro de produtos
+- Edição e exclusão de produtos
+- Gerenciamento de informações, preços e estoque
+- Upload de imagens dos produtos
+
+### Backend
+- API REST para integração com o frontend
+- Autenticação e controle de permissões por perfil
+- Integração com banco de dados MySQL
+
