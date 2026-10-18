@@ -144,3 +144,19 @@ As operações de criação e atualização aceitam upload de até 10 imagens us
 
 As rotas protegidas exigem autenticação. As rotas administrativas também verificam a permissão do usuário.
 
+
+### Carrinho de compras
+
+Todas as rotas do carrinho exigem autenticação.
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| POST | `/api/cart` | Adicionar produto ao carrinho |
+| GET | `/api/cart` | Consultar o carrinho |
+| PUT | `/api/cart/:productId` | Atualizar quantidade de um produto |
+| DELETE | `/api/cart/:productId` | Remover um produto do carrinho |
+| DELETE | `/api/cart` | Limpar o carrinho |
+
+O acesso é controlado pelo middleware de autenticação.
+
+
