@@ -160,3 +160,20 @@ Todas as rotas do carrinho exigem autenticação.
 O acesso é controlado pelo middleware de autenticação.
 
 
+### Pedidos
+
+| Método | Endpoint | Acesso |
+|---|---|---|
+| POST | `/api/orders` | Usuário autenticado |
+| GET | `/api/orders` | Usuário autenticado |
+| GET | `/api/orders/:id` | Usuário autenticado |
+| GET | `/api/orders/admin` | ADMIN |
+| GET | `/api/orders/admin/:id` | ADMIN |
+| PUT | `/api/orders/:id/status` | ADMIN |
+
+As rotas administrativas exigem autenticação e permissão de administrador.
+
+Os clientes autenticados podem criar pedidos e consultar pedidos pelas rotas destinadas aos usuários.
+
+
+
