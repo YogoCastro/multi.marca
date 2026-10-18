@@ -81,3 +81,26 @@ npm install
 Configure as variáveis de ambiente necessárias para a conexão com o MySQL antes de iniciar o servidor.
 
 Consulte a seção de variáveis de ambiente deste README.
+
+
+## Variáveis de ambiente
+
+Crie um arquivo `.env` dentro da pasta `backend` e configure as seguintes variáveis:
+
+```env
+PORT=4000
+
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=sua_senha_mysql
+DB_NAME=multicheiros
+DB_PORT=3306
+
+JWT_SECRET=seu_segredo_jwt
+```
+
+**Importante:**
+- Substitua os valores de exemplo pelos dados do seu ambiente.
+- Utilize um segredo JWT forte e privado.
+- Nunca envie senhas ou segredos reais para o GitHub.
+- Não publique o arquivo `.env` no repositório.
