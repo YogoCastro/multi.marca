@@ -47,3 +47,37 @@ O Multicheiros é uma aplicação de comércio eletrônico que está sendo desen
 - Autenticação e controle de permissões por perfil
 - Integração com banco de dados MySQL
 
+
+## Pré-requisitos
+
+Antes de começar, você precisa ter instalado:
+
+- [Node.js](https://nodejs.org/)
+- [Git](https://git-scm.com/)
+- [MySQL](https://dev.mysql.com/downloads/)
+
+## Instalação
+
+### 1. Clonar o repositório
+
+```bash
+git clone https://github.com/YogoCastro/multi.marca.git
+```
+
+### 2. Entrar na pasta do backend
+
+```bash
+cd multi.marca/backend
+```
+
+### 3. Instalar as dependências
+
+```bash
+npm install
+```
+
+### 4. Configurar o ambiente
+
+Configure as variáveis de ambiente necessárias para a conexão com o MySQL antes de iniciar o servidor.
+
+Consulte a seção de variáveis de ambiente deste README.
