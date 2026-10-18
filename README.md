@@ -104,3 +104,14 @@ JWT_SECRET=seu_segredo_jwt
 - Utilize um segredo JWT forte e privado.
 - Nunca envie senhas ou segredos reais para o GitHub.
 - Não publique o arquivo `.env` no repositório.
+
+
+## Executar o backend
+
+Dentro da pasta `backend`, execute:
+
+```bash
+npm run dev
+```
+
+O servidor será iniciado conforme a configuração do projeto.
