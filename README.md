@@ -173,6 +173,16 @@ O acesso é controlado pelo middleware de autenticação.
 
 As rotas administrativas exigem autenticação e permissão de administrador.
 
+
+### Usuários
+
+| Método | Endpoint | Acesso |
+|---|---|---|
+| GET | `/api/users` | ADMIN |
+
+Essa rota permite consultar a lista de usuários cadastrados. O acesso exige autenticação e permissão de administrador.
+
+
 Os clientes autenticados podem criar pedidos e consultar pedidos pelas rotas destinadas aos usuários.
 
 
