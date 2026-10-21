@@ -1,0 +1,678 @@
+/* Contentor principal do Banner */
+.about-header-banner,
+.page-header-banner {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Camada de gradiente de fundo */
+.about-header-banner::before,
+.page-header-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #f7f3ef 45%, rgba(247, 243, 239, 0.75) 68%, transparent 100%);
+    z-index: 1;
+}
+
+/* Contentor interno alinhado exatamente com o grid de 1200px do site */
+.banner-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px; /* Mantém o espaçamento lateral idêntico ao header e footer */
+}
+
+/* Caixa que limita a largura do texto para não esticar demasiado */
+.banner-text-inner {
+    max-width: 540px;
+}
+
+/* Estilos de tipografia mantidos */
+.banner-eyebrow {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #78350f;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.about-header-banner h1,
+.page-header-banner h1 {
+    font-family: serif;
+    font-size: 2.8rem;
+    color: #1c1917;
+    margin-bottom: 12px;
+    font-weight: 500;
+    line-height: 1.15;
+}
+
+.about-header-banner p,
+.page-header-banner p {
+    font-size: 0.95rem;
+    color: #57534e;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.banner-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.banner-divider i {
+    color: #8b3e23;
+    font-size: 0.85rem;
+}
+
+.divider-line {
+    width: 70px;
+    height: 1px;
+    background-color: #8b3e23;
+    opacity: 0.4;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .about-header-banner,
+    .page-header-banner {
+        height: 340px;
+    }
+    
+    .about-header-banner::before,
+    .page-header-banner::before {
+        background: rgba(247, 243, 239, 0.92);
+    }
+
+    .about-header-banner h1,
+    .page-header-banner h1 {
+        font-size: 2.2rem;
+    }
+}
+
+/* Contentor Principal da Secção */
+.about-section {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Grelha de Duas Colunas */
+.about-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+/* Lado Esquerdo: Textos */
+.about-text-side {
+    flex: 1;
+    max-width: 540px;
+}
+
+.about-eyebrow {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #78350f; /* Tom marrom do tema */
+    font-weight: 700;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.about-text-side h2 {
+    font-family: serif;
+    font-size: 2.4rem;
+    color: #1c1917;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.about-text-side p {
+    font-size: 0.9rem;
+    color: #57534e;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+/* Botão "Nossa história" */
+.about-btn {
+    display: inline-block;
+    background-color: #8b3e23; /* Tom terroso principal */
+    color: #ffffff;
+    padding: 12px 28px;
+    border-radius: 9999px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.about-btn:hover {
+    background-color: #6a2e19;
+}
+
+/* Lado Direito: Imagem e Anotação */
+.about-image-side {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.about-image-wrapper {
+    width: 100%;
+    max-width: 560px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.about-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+}
+
+/* Contentor principal do bloco manuscrito */
+.annotation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: 'Caveat', cursive;
+    padding: 20px;
+}
+
+/* Estilo do texto em 3 linhas com toque artesanal */
+.annotation-text {
+    font-size: 2.2rem;
+    color: #57534e;
+    line-height: 1.15;
+    text-align: left;
+    margin-bottom: 12px;
+    transform: rotate(-1.5deg); /* Leve inclinação natural */
+}
+
+/* Linha inferior com a seta e o ícone do ramo de folhas */
+.annotation-bottom {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: 5px;
+}
+
+/* Seta minimalista */
+.annotation-arrow {
+    font-family: sans-serif;
+    font-size: 1.2rem;
+    color: #8b3e23;
+    font-weight: 300;
+}
+
+/* Ícone do ramo de folhas estilizado na cor terrosa do tema */
+.annotation-icon {
+    font-size: 1.4rem;
+    color: #8b3e23;
+}
+
+/* Contentor principal da secção */
+.features-section {
+    width: 100%;
+    background-color: #fcf9f5; /* Tom creme muito suave e elegante */
+    padding: 50px 20px;
+    box-sizing: border-box;
+    border-top: 1px solid #e7e2dc;
+    border-bottom: 1px solid #e7e2dc;
+}
+
+/* Grelha de 4 colunas */
+.features-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+}
+
+/* Item individual */
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 25px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Linha divisória vertical subtil entre os itens (exceto no último) */
+.feature-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 15%;
+    height: 70%;
+    width: 1px;
+    background-color: #e7e2dc;
+}
+
+/* Caixa circular do ícone */
+.feature-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid #e7e2dc;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #57534e;
+    font-size: 1rem;
+    margin-bottom: 16px;
+    transition: all 0.2s ease;
+}
+
+/* Efeito ao passar o rato no ícone */
+.feature-item:hover .feature-icon {
+    border-color: #8b3e23;
+    color: #8b3e23;
+}
+
+/* Título em serifa */
+.feature-item h3 {
+    font-family: serif;
+    font-size: 1.1rem;
+    color: #1c1917;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Descrição */
+.feature-item p {
+    font-size: 0.82rem;
+    color: #78716c;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Responsividade para tablets e telemóveis */
+@media (max-width: 992px) {
+    .features-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 20px;
+    }
+  /* Remove as linhas verticais em ecrãs menores de 2 colunas */
+    .feature-item:not(:last-child)::after {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .features-container {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+}
+
+/* Contentor Principal da Secção */
+.team-section {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Grelha de Duas Colunas */
+.team-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+/* Lado Esquerdo: Textos */
+.team-text-side {
+    flex: 1;
+    max-width: 520px;
+}
+
+.team-eyebrow {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #78350f; /* Tom terroso do tema */
+    font-weight: 700;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.team-text-side h2 {
+    font-family: serif;
+    font-size: 2.4rem;
+    color: #1c1917;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.team-text-side p {
+    font-size: 0.9rem;
+    color: #57534e;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.team-cursive-note {
+    font-family: 'Caveat', cursive; /* Fonte manuscrita */
+    font-size: 1.6rem;
+    color: #57534e;
+    line-height: 1.25;
+    margin-top: 20px;
+    display: inline-block;
+    transform: rotate(-3deg); /* Aplica a inclinação exata da primeira imagem */
+    position: relative;
+}
+
+/* O pequeno traço/visto desenhado à mão por baixo da palavra "os" */
+.team-cursive-note::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 2px;
+    width: 12px;
+    height: 8px;
+    border-left: 1.5px solid #57534e;
+    border-bottom: 1.5px solid #57534e;
+    transform: rotate(-15deg);
+    border-bottom-left-radius: 4px;
+}
+
+/* Lado Direito: Imagem */
+.team-image-side {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.team-image-wrapper {
+    width: 100%;
+    max-width: 560px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.team-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+}
+
+/* Responsividade para Tablets e Telemóveis */
+@media (max-width: 992px) {
+    .team-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .team-image-side {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+/* =========================================================
+    SECÇÃO MISSÃO, VISÃO E VALORES (MVV)
+========================================================= */
+
+.about-mvv {
+    background-color: #f7f4ee; /* Tom creme/suave de fundo */
+    padding: 60px 20px;
+    color: #2d221e; /* Tom castanho escuro para o texto */
+}
+
+.mvv-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Cada Coluna/Card */
+.mvv-card {
+    flex: 1;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Ícones */
+.mvv-icon {
+    margin-bottom: 16px;
+    color: #6b4423; /* Tom de acento/castanho */
+}
+
+/* Títulos */
+.mvv-card h3 {
+    font-family: serif; /* Fontes com serifa conferem sofisticação */
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: #2d221e;
+}
+
+/* Textos de Missão e Visão */
+.mvv-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #554840;
+    margin: 0;
+}
+
+/* Lista de Valores */
+.mvv-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mvv-list li {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #554840;
+    position: relative;
+    padding-left: 14px;
+}
+
+.mvv-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #554840;
+}
+
+/* Linhas Divisórias Verticais */
+.mvv-divider {
+    width: 1px;
+    background-color: #e2dacd;
+    margin: 10px 0;
+}
+
+/* Adaptabilidade para Dispositivos Móveis (Responsividade) */
+@media (max-width: 768px) {
+    .mvv-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .mvv-divider {
+        width: 100%;
+        height: 1px;
+        margin: 0;
+    }
+
+    .mvv-card {
+        padding: 0;
+    }
+}
+
+.banner-cta {
+    position: relative;
+    width: 100%;
+    min-height: 280px;
+    /* Imagem de fundo com vela e difusor */
+    background-image: url('../assets/images/banner-bg.jpg'); 
+    background-size: cover;
+    background-position: center right;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Camada escura por cima da imagem para garantir leitura dos textos */
+    .banner-cta-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg, 
+        rgba(80, 42, 21, 0.88) 0%, 
+        rgba(80, 42, 21, 0.65) 50%, 
+        rgba(80, 42, 21, 0.2) 100%
+    );
+    z-index: 1;
+}
+
+.banner-cta-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    }
+
+/* --- LADO ESQUERDO --- */
+.banner-cta-content {
+    max-width: 500px;
+    color: #ffffff;
+}
+
+.banner-cta-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #f3e5d8;
+    margin-bottom: 8px;
+}
+
+.banner-cta-title {
+    font-family: serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+    line-height: 1.2;
+}
+
+.banner-cta-description {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #f3e5d8;
+    margin: 0 0 24px 0;
+}
+
+/* Botão Arredondado Claro */
+.banner-cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #fcf8f5;
+    color: #502a15;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.banner-cta-button:hover {
+    background-color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.banner-cta-button .arrow {
+    font-size: 16px;
+    transition: transform 0.2s ease;
+}
+
+.banner-cta-button:hover .arrow {
+    transform: translateX(4px);
+}
+
+/* --- LADO DIREITO (TEXTO MANUSCRITO) --- */
+.banner-cta-cursive {
+    font-family: 'Caveat', cursive;
+    font-size: 28px;
+    line-height: 1.25;
+    color: rgba(255, 255, 255, 0.85); /* Branco suave levemente translúcido */    
+    transform: rotate(-6deg);     
+    text-shadow: none;     
+    margin-right: 140px; 
+}
+
+/* --- ADAPTABILIDADE PARA SMARTPHONES --- */
+@media (max-width: 900px) {
+    .banner-cta-cursive {
+        display: none; /* Oculta o texto manuscrito em ecrãs pequenos para não poluir */
+    }
+}
+
+@media (max-width: 600px) {
+    .banner-cta {
+        min-height: auto;
+        background-position: center;
+    }
+    
+    .banner-cta-overlay {
+        background: rgba(80, 42, 21, 0.85); /* Escurece mais no mobile para dar leitura */
+    }
+
+    .banner-cta-title {
+        font-size: 26px;
+    }
+
+    .banner-cta-description br {
+        display: none; /* Remove quebras de linha manuais no telemóvel */
+    }
+}
