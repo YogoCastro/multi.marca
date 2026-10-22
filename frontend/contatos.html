@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multicheiros | Loja</title>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/contato.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap">
+    <script
+        src="https://kit.fontawesome.com/7cadf30ff8.js"
+        crossorigin="anonymous"
+    ></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <!-- 1. Logótipo e Slogan -->
+            <a href="#" class="header-logo">
+            <i class="fa-solid fa-spa logo-icon"></i>
+            <div class="logo-text">
+                <h1>MULTICHEIROS</h1>
+                <span>essências • ambientes • experiências</span>
+            </div>
+            </a>
+
+        <!-- 2. Navegação Central -->
+            <nav class="header-nav">
+                <a href="./index.html" class="nav-link">Início</a>
+                <a href="./produtos.html" class="nav-link">Produtos</a>
+                <a href="./about.html" class="nav-link">Sobre</a>
+                <a href="#" class="nav-link active">Contato</a>
+            </nav>
+
+        <!-- 3. Ações à Direita (Busca, Conta, Carrinho) -->
+            <div class="header-actions">
+                <!-- Caixa de Pesquisa -->
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Buscar produtos..." />
+                </div>
+
+                <!-- Ícone de Perfil/Conta -->
+                <a href="#" class="action-icon" aria-label="Minha conta">
+                    <i class="fa-regular fa-user"></i>
+                </a>
+
+                <!-- Ícone do Carrinho com o Número (Badge) -->
+                <a
+                    href="#"
+                    class="action-icon cart-icon-wrapper"
+                    aria-label="Carrinho de compras"
+                >
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-badge">2</span>
+                    <!-- Número de itens no carrinho -->
+                </a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <!-- BANNER FALE CONOSCO -->
+        <section class="banner-contact">
+            <div class="banner-contact-overlay"></div>
+            <div class="banner-contact-container">
+                <div class="banner-contact-content">
+                    <span class="banner-contact-label">FALE CONOSCO</span>
+                    <h2 class="banner-contact-title">Estamos aqui<br />para te ajudar</h2>
+                    <p class="banner-contact-description">
+                        Tire suas dúvidas, envie sua mensagem<br />
+                        ou entre em contato conosco. Será um prazer<br />
+                        falar com você!
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="contact-section">
+            <div class="contact-container">
+                
+                <!-- COLUNA DA ESQUERDA: FORMULÁRIO -->
+                <div class="contact-card contact-form-card">
+                    <span class="contact-label">ENVIE SUA MENSAGEM</span>
+                    <h2 class="contact-title">Fale com a gente</h2>
+                    <p class="contact-subtitle">
+                        Preencha o formulário abaixo e nossa equipe responderá o mais breve possível.
+                    </p>
+
+                    <form class="contact-form" action="#" method="POST">
+                        <!-- Nome e E-mail lado a lado -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="nome" name="nome" placeholder="Nome completo *" required />
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder="E-mail *" required />
+                            </div>
+                        </div>
+
+                        <!-- Assunto (Select) -->
+                        <div class="form-group">
+                            <select id="assunto" name="assunto" required>
+                                <option value="" disabled selected hidden>Assunto *</option>
+                                <option value="duvida">Dúvida sobre produto</option>
+                                <option value="pedido">Status do pedido</option>
+                                <option value="sugestao">Sugestão ou Elogio</option>
+                                <option value="outro">Outro assunto</option>
+                            </select>
+                        </div>
+
+                        <!-- Mensagem -->
+                        <div class="form-group">
+                            <textarea id="mensagem" name="mensagem" rows="5" placeholder="Mensagem *" required></textarea>
+                        </div>
+
+                        <!-- Botão Submeter -->
+                        <button type="submit" class="btn-submit">
+                        <!-- Ícone de avião de papel / enviar -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                        Enviar mensagem
+                        </button>
+                    </form>
+                </div>
+
+                <!-- COLUNA DA DIREITA: CANAIS DE ATENDIMENTO E DESTAQUE -->
+                <div class="contact-sidebar">
+                
+                    <!-- CARD DE CANAIS -->
+                    <div class="contact-card contact-info-card">
+                        <h3 class="info-title">Nossos canais de atendimento</h3>
+                        <p class="info-subtitle">Escolha o canal que preferir e fale com a gente.</p>
+
+                        <div class="info-list">
+                        
+                            <!-- ITEM: WhatsApp -->
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                    </svg>
+                                    </div>
+                                    <div class="info-details">
+                                    <strong>WhatsApp</strong>
+                                    <p>(11) 98765-4321</p>
+                                    <span>Segunda a Sexta • 8h às 18h</span>
+                                </div>
+                            </div>
+
+                            <!-- ITEM: E-mail -->
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </div>
+                                <div class="info-details">
+                                    <strong>E-mail</strong>
+                                    <p>contato@multicheiros.com</p>
+                                    <span>Respondemos em até 24h</span>
+                                </div>
+                            </div>
+
+                            <!-- ITEM: Instagram -->
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                                <div class="info-details">
+                                    <strong>Instagram</strong>
+                                    <p>@multicheiros</p>
+                                    <span>Segunda a Sexta • 8h às 18h</span>
+                                </div>
+                            </div>
+
+                            <!-- ITEM: Endereço -->
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>                            </div>
+                                <div class="info-details">
+                                    <strong>Endereço</strong>
+                                    <p>Av. Exemplo, 123 - Centro</p>
+                                    <span>São Paulo - SP, 01000-000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD DE ATENDIMENTO PERSONALIZADO -->
+                    <div class="contact-card contact-highlight-card">
+                        <div class="highlight-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+                                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                            </svg>
+                        </div>
+                        <div class="highlight-content">
+                            <h4>Atendimento personalizado</h4>
+                            <p>Estamos sempre prontos para te atender e tornar sua experiência ainda mais especial.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-container">
+        <!-- Coluna 1: Logótipo e Slogan -->
+        <div class="footer-col brand-col">
+            <div class="footer-logo">
+            <i class="fa-solid fa-spa"></i>
+            <div class="brand-text">
+                <h3>MULTICHEIROS</h3>
+                <span>essências • ambientes • experiências</span>
+            </div>
+            </div>
+        </div>
+
+        <!-- Coluna 2: Loja -->
+        <div class="footer-col">
+            <h4>Loja</h4>
+            <ul>
+            <li><a href="./index.html">Início</a></li>
+            <li><a href="./produtos.html">Produtos</a></li>
+            <li><a href="#">Carrinho</a></li>
+            </ul>
+        </div>
+
+        <!-- Coluna 3: Conta -->
+        <div class="footer-col">
+            <h4>Conta</h4>
+            <ul>
+            <li><a href="#">Entrar</a></li>
+            <li><a href="#">Criar conta</a></li>
+            <li><a href="#">Meus pedidos</a></li>
+            </ul>
+        </div>
+
+        <!-- Coluna 4: Newsletter -->
+        <div class="footer-col newsletter-col">
+            <h4>Newsletter</h4>
+            <p>Receba novidades e ofertas exclusivas.</p>
+            <form class="newsletter-form">
+            <input type="email" placeholder="Seu e-mail" required />
+            <button type="submit" aria-label="Submeter newsletter">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+            </form>
+        </div>
+
+        <!-- Coluna 5: Redes Sociais -->
+        <div class="footer-col social-col">
+            <h4>Siga-nos</h4>
+            <div class="social-icons">
+            <a href="#" aria-label="Instagram"
+                ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="#" aria-label="Facebook"
+                ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+            <a href="#" aria-label="YouTube"
+                ><i class="fa-brands fa-youtube"></i
+            ></a>
+            </div>
+        </div>
+        </div>
+
+        <!-- Linha Divisória -->
+        <hr class="footer-divider" />
+
+        <!-- Rodapé Inferior -->
+        <div class="footer-bottom">
+        <p>&copy; 2026 Multicheiros. Todos os direitos reservados.</p>
+        <div class="footer-bottom-right">
+            <span>Ambientes melhores. Momentos únicos.</span>
+            <i class="fa-solid fa-leaf"></i>
+        </div>
+        </div>
+    </footer>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/carrinho.js"></script>
+    <script src="js/produtos.js"></script>
+    <script src="js/home.js"></script>
+</body>
+</html>
